@@ -1,0 +1,15 @@
+@import "../../../../assets/scss/mixin.scss";
+
+.toasts-wrapper {
+  @include screen('phone') {
+      width: 90%;
+      left: auto;
+    }
+
+  position: fixed;
+  top: 90px;
+  left: calc(50% - 210px);
+  z-index: 999;
+
+
+}

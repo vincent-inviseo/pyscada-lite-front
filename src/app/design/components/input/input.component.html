@@ -1,0 +1,47 @@
+<div class="form__group" [ngClass]="{
+  error: error || errors || (control?.invalid && control?.touched)
+}">
+<label [ngClass]="{ 'label-disabled': disabled }" [for]="id">{{
+  label
+  }} <span class="required" *ngIf="required && label">*</span></label>
+
+<div class="form__group__input">
+  <input [min]="min" [minlength]="minLength" [max]="max" [maxlength]="maxLength" [id]="id" [name]="id" [type]="show ? 'text' : type"
+    [email]="type === 'email'" [disabled]="disabled" [(ngModel)]="value" [required]="required" (blur)="onTouch()"
+    [placeholder]="placeholder" [pattern]="pattern" (keydown.space)="onSpace($event)"
+    [ngClass]="{ 'icon-input': rightIcon }" *ngIf="type !== 'date'"/>
+    <input [id]="id" [name]="id" [type]="show ? 'text' : type"
+      [disabled]="disabled" [valueAsDate]="dateValue" (change)="updateDate($event)" [required]="required" (blur)="onTouch()"
+      [placeholder]="placeholder" [pattern]="pattern" (keydown.space)="onSpace($event)"
+      [ngClass]="{ 'icon-input': rightIcon }" *ngIf="type === 'date'" />
+  <button class="show" type="button" (click)="onShow()" *ngIf="type === 'password'">
+    <i class="pi pi-eye" *ngIf="show"></i>
+    <i class="pi pi-eye-slash" *ngIf="!show"></i>
+  </button>
+  <span class="right-icon" [ngClass]="{ 'icon-disabled': disabled }" *ngIf="rightIcon">
+    <i [class]="rightIcon"></i>
+  </span>
+</div>
+<div class="form__errors">
+  <div class="form__group__error" *ngIf="
+      control?.invalid && control?.touched && !control?.hasError('pattern') && required
+    ">
+    <ng-container *ngIf="type === 'email'">
+      Email invalide
+    </ng-container>
+    <ng-container *ngIf="type !== 'email'">
+      Ce champ est requis
+    </ng-container>
+  </div>
+  <div class="form__group__error" *ngIf="control?.hasError('pattern') && control?.touched">
+    Format de l'adresse invalide
+  </div>
+
+  <div class="form__group__error" *ngIf="error">
+    {{ error }}
+  </div>
+  <div class="form__group__error" *ngFor="let e of errors">
+    {{ e }}
+  </div>
+</div>
+</div>

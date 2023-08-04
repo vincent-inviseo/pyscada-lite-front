@@ -1,0 +1,46 @@
+<div class="container" *ngIf="buildings">
+    <div class="top-container">
+      <h1>Bâtiments</h1>
+      <div class="actions">
+      <app-input type="text" id="search" [(ngModel)]="search" placeholder="Lancer une recherche..."></app-input>
+      <!--
+      <app-button
+      bgColor="blue"
+      size="medium"
+      id="building-plus"
+      icon="pi pi-plus"
+      routerLink="/auth/register"
+      >Nouveau</app-button>
+        -->
+      </div>
+    </div>
+    <div class="activity-sidebar">
+        <h2 id="activity-title">Activités récentes</h2>
+        <div class="bottom">
+            <h1>Bottom</h1>
+        </div>
+    </div>
+    <div class="data-container mt-10">
+      <div class="card zoom ask-border" *ngFor="let building of buildings | filter:search" [routerLink]="['/buildings/' + building.id]">
+        <div class="card_top">
+          <p class="building-name">
+            {{building.name}}
+          </p>
+        </div>
+        <div class="card_body">
+          {{building.address}}
+        </div>
+        <div class="card_footer">
+          <small *ngIf="building.updatedAt === null">
+            Créer le {{building.createdAt | date:'dd MM YYYY HH:mm'}}
+          </small>
+          <small *ngIf="building.updatedAt !== null">
+            Mis à jour le {{building.updatedAt | date:'dd MM YYYY HH:mm'}}
+          </small>
+        </div>
+      </div>
+      <span *ngIf="buildings.length <= 0">Aucun bâtiment sur votre compte</span>
+    </div>
+  </div>
+  
+  
