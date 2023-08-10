@@ -1,0 +1,24 @@
+<div class="widgetsContainer">
+    <div class="widgetBarGraph">
+        <app-widget [chartHeight]="'75vh'" [idGraph]="'mainBarGraph'" [chartType]="'barGraph'" [title]="'Consommation'"></app-widget>
+    </div>
+
+    <div class="widgetsRightSide">
+        <div class="valueOnly">
+            <div class="loneValue">
+                <app-widget [idGraph]="'loneValue'" [chartType]="'none'" [title]="'Consommation'" [colorLoneValue]="'var(--main-blue)'" [loneValue]="'430,14'" [unitLoneValue]="'kW'"></app-widget>
+            </div>
+
+            <div class="loneValueRightmost">
+                <app-widget [idGraph]="'loneVal'" [chartType]="'none'" [title]="'Consommation'" [colorLoneValue]="'var(--main-blue)'" [loneValue]="'430,14'" [unitLoneValue]="'kW'"></app-widget>
+            </div>
+        </div>
+
+        <div class="lineChart">
+            <app-widget [idGraph]="'lineChart'" [chartType]="'lineChart'" [title]="'Conso en graphe linéaire'"></app-widget>
+        </div>
+    </div>
+
+    
+</div>
+

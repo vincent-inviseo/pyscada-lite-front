@@ -9,11 +9,13 @@ import { BuildingDetailComponent } from './building-detail/building-detail.compo
 import { InputSwitchModule } from 'primeng/inputswitch';
 import { DropdownModule as dpm } from 'primeng/dropdown';
 import { SearchFilterPipe } from 'src/app/pipes/SearchFilter.pipe';
+import { GraphsModule } from '../graphs/graphs.module';
+import { WidgetModule } from 'src/app/design/components/widget/widget.module';
 
 @NgModule({
   declarations: [
     BuildingsComponent,
-    // BuildingDetailComponent,
+    BuildingDetailComponent,
     SearchFilterPipe
   ],
   imports: [
@@ -24,6 +26,8 @@ import { SearchFilterPipe } from 'src/app/pipes/SearchFilter.pipe';
     ReactiveFormsModule,
     InputSwitchModule,
     dpm,
+    GraphsModule,
+    WidgetModule
   ],
   providers: [
   ]

@@ -4,7 +4,8 @@
   width: 100%;
   background-color: var(--gray-200);
   min-height: 100%;
-  padding: 50px 250px;
+  //padding: 50px 250px;
+  padding-left: var(--navigation-width);;
 }
 
 #menu_open_icon {
@@ -14,14 +15,3 @@
   }
 }
 
-@include screen('phone') {
-  .full-view {
-    &__wrapper {
-      width: 100%;
-      margin: 0 0 0;
-      background-color: var(--gray-200);
-      min-height: 100%;
-      // padding: 40px;
-    }
-  }
-}

@@ -16,7 +16,7 @@ export class BuildingDetailComponent {
 
   constructor(
     private readonly activatedRoute: ActivatedRoute,
-    private readonly router :Router,
+    private readonly router: Router,
     private readonly storageService: StorageService
   )
   {}

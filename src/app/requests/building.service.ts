@@ -12,12 +12,6 @@ export class BuildingService extends AbstractRequestService{
     return this.http.get(`${this.apiUrl}/api/buildings/`);
   }
 
-  /* for now unknown ?
-  public getBuildingsByUserId(is: string): Observable<any> {
-    
-  }
-  */
-
   public getBuilding(buildingId:any): Observable<any> {
     return this.http.get(`${this.apiUrl}/api/buildings/${buildingId}/get`);
   }

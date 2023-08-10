@@ -1,15 +1,16 @@
 .container {
+  padding-left: 80px;
   .top-container {
     display: flex;
     justify-content: space-between;
     align-items: center;
     .actions {
       display: flex;
-      width: 100%;
-      justify-content: flex-end;
+      width: 80%;
       #search {
-        padding-right: 60px;
-        width: 350px;
+        margin-top: 5px;
+        margin-left: 530px;
+        width: 250px;
       }
       #building-plus {
         margin-top: 5px;
@@ -19,6 +20,7 @@
   .data-container {
     display: flex;
     flex-wrap: wrap;
+    width: 80%;
     .card {
       width: 20%;
       height: 150px;
@@ -49,9 +51,10 @@
         flex-direction: column;
         justify-content: center;
         align-items: center;
-        padding-left: 5px;
-        padding-right: 5px;
+        padding-left: 10px;
+        padding-right: 10px;
         padding-bottom: 30px;
+        font-size: 12px;
       }
       &_footer {
         display: flex;
@@ -81,11 +84,11 @@
     background: #FFFFFF;
     padding: 30px 10px;
     transition: 0.5s;
-    padding-right: 40px;
     border-left: solid 1px var(--surface-border);
 
     #activity-title {
-      padding-left: 30px;
+      justify-content: center;
+      align-items: center;
     }
 
     ul {

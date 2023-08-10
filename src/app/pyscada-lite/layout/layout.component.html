@@ -1,6 +1,6 @@
-<app-navigation [isOpened]="isOpened" (menuclosed)="isOpened = $event"></app-navigation>
+<app-navigation></app-navigation>
 
-<div class="wrapper full-view__wrapper">
+<div class="wrapper">
   <i class="pi pi-bars" id="menu_open_icon" (click)="isOpened = true"></i>
   <router-outlet></router-outlet>
 </div>
