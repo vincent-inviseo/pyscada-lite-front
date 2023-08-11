@@ -12,6 +12,8 @@ export class BarGraphComponent implements AfterViewInit {
 
   @Input() public id!: string;
 
+  @Input() public chartWidth: string = ""
+
   @Input() public chartHeight: string = "";
 
   public xValues: string[] = ["Italy", "France", "Spain", "USA", "Argentina", "test"];

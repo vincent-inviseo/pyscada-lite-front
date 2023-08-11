@@ -11,6 +11,8 @@ export class GraphsComponent implements AfterContentInit {
 
   @Input() public id!: string;
 
+  @Input() public chartWidth: string = ""
+
   @Input() public chartHeight: string = "";
 
   public ngAfterContentInit() {

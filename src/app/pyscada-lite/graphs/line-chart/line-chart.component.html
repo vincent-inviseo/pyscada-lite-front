@@ -1,5 +1,5 @@
 <div *ngIf="id">
-    <canvas [ngStyle]="{ 'height': chartHeight }" class="lineChart" [id]="id"></canvas>
+    <canvas [ngStyle]="{ 'height': chartHeight, 'width': chartWidth }" class="lineChart" [id]="id"></canvas>
     <div id="resetZoom">
         <input type="button" id="resetZoomButton" value="Reset zoom" (click)="resetZoomChart()">
     </div>

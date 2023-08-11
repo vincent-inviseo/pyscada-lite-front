@@ -8,6 +8,8 @@ import { Chart } from 'chart.js/auto';
 })
 export class LoadProfileComponent implements AfterViewInit {
 
+  @Input() public chartWidth: string = ""
+
   @Input() public chartHeight: string = "";
 
   @Input() public id!: string;

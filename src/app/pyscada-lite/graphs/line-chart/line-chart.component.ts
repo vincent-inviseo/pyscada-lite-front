@@ -14,6 +14,8 @@ export class LineChartComponent implements AfterViewInit {
 
   @Input() public id!: string;
 
+  @Input() public chartWidth: string = ""
+
   @Input() public chartHeight: string = "";
 
   public labelsValues = ["LUN", "MAR", "MER", "JEU", "VEN", "SAM", "DIM"];

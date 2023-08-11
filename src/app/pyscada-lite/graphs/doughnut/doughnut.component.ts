@@ -13,6 +13,8 @@ export class DoughnutComponent implements AfterViewInit {
 
   @Input() public id!: string;
 
+  @Input() public chartWidth: string = ""
+
   @Input() public chartHeight: string = "";
 
   public labelsValues = ["Italy", "France", "Spain", "USA", "Argentina", "test"];

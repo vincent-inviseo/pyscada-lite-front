@@ -13,6 +13,8 @@ export class WidgetComponent implements AfterViewInit, OnInit {
 
   @Input() public chartType = "none";
 
+  @Input() public chartWidth: string = ""
+
   @Input() public chartHeight: string = "";
 
   @Input() public colorLoneValue = "";
