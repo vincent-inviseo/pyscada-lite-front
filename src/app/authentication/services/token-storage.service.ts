@@ -2,7 +2,6 @@ import { Injectable } from '@angular/core';
 import { JwtHelperService } from '@auth0/angular-jwt';
 import { StorageService } from 'src/app/authentication/services/storage.service';
 import CredentialToken from 'src/app/authentication/models/CredentialToken';
-import Token from 'src/app/authentication/models/Token'
 import { JWTResponse } from 'src/app/authentication/interfaces/JWTResponse';
 import { Router } from '@angular/router';
 

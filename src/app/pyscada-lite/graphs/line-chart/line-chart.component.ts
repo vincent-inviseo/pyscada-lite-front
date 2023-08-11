@@ -14,9 +14,9 @@ export class LineChartComponent implements AfterViewInit {
 
   @Input() public id!: string;
 
-  @Input() public chartWidth: string = ""
+  @Input() public chartWidth = "";
 
-  @Input() public chartHeight: string = "";
+  @Input() public chartHeight = "";
 
   public labelsValues = ["LUN", "MAR", "MER", "JEU", "VEN", "SAM", "DIM"];
   public valuesCurrentWeek = [55, 49, 44, 24, 15, 30, 60];

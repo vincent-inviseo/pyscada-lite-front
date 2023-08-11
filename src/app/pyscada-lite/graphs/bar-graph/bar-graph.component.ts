@@ -12,9 +12,9 @@ export class BarGraphComponent implements AfterViewInit {
 
   @Input() public id!: string;
 
-  @Input() public chartWidth: string = ""
+  @Input() public chartWidth = "";
 
-  @Input() public chartHeight: string = "";
+  @Input() public chartHeight = "";
 
   public xValues: string[] = ["Italy", "France", "Spain", "USA", "Argentina", "test"];
   public yValues2023: number[] = [55, 49, 44, 24, 15, 30];
@@ -34,8 +34,8 @@ export class BarGraphComponent implements AfterViewInit {
   }
 
   public opacityColors(yValues: number[], yValuesAlter: number[]) : void {
-    var length = yValues.length;
-    for (var i = 0; i < length; i++) {
+    const length = yValues.length;
+    for (let i = 0; i < length; i++) {
       if (yValues[i] < yValuesAlter[i] ) {
         this.barBlue.push(this.colorBlue);
         this.barLightBlue.push(this.colorLightBlue);
@@ -106,7 +106,7 @@ export class BarGraphComponent implements AfterViewInit {
             enabled: true,
             callbacks: {
               footer: (items: any) => {
-                let percentage = ((100 * items[0].raw / items[1].raw) - 100).toFixed(2);
+                const percentage = ((100 * items[0].raw / items[1].raw) - 100).toFixed(2);
                 if (Number(percentage) >= 0) {
                   return "+" + `${percentage}` + '%'
                 }

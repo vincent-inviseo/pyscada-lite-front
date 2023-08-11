@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import { Component, AfterViewInit, Input } from '@angular/core';
 import { Chart } from 'chart.js/auto';
 
@@ -8,9 +9,9 @@ import { Chart } from 'chart.js/auto';
 })
 export class LoadProfileComponent implements AfterViewInit {
 
-  @Input() public chartWidth: string = ""
+  @Input() public chartWidth = "";
 
-  @Input() public chartHeight: string = "";
+  @Input() public chartHeight = "";
 
   @Input() public id!: string;
 
@@ -68,7 +69,7 @@ export class LoadProfileComponent implements AfterViewInit {
     for (let i = 0; i < this.valuesWeek.length; i++) {
       this.colorsLoadProfile.push([]);  
     }
-    let numberDays = valuesWeek[0].length;
+    const numberDays = valuesWeek[0].length;
     let temp = 0;
     /* Itirates over specific time frames */
     for (let i = 0; i < valuesWeek.length; i++) {
@@ -119,7 +120,7 @@ export class LoadProfileComponent implements AfterViewInit {
 
   public setDatasetsLoadProfile(): void {
     for (let i = 0; i < this.valuesWeek.length; i++) {
-      var dataset = 
+      const dataset = 
       {
         data: this.barSizeWeek,
         backgroundColor: this.colorsLoadProfile[i],
@@ -131,7 +132,7 @@ export class LoadProfileComponent implements AfterViewInit {
 
   public setDatasetsLegendLoadProfile() {
     for (let i = 0; i < this.gradientColorsLightToDark.length; i++) {
-      var dataset =
+      const dataset =
       {
         data: [50],
         backgroundColor: this.gradientColorsLightToDark[i],
@@ -144,9 +145,9 @@ export class LoadProfileComponent implements AfterViewInit {
   customXScaleLoadProfile = {
     id: 'customXScaleLoadProfile',
     beforeDatasetsDraw: (chart: any) => {
-      const {ctx, scales: {x, y}} = chart;
+      const {ctx, scales: {x}} = chart;
       ctx.save();
-      for (var i = 0; i <= x.ticks.length + 7; i++) {
+      for (let i = 0; i <= x.ticks.length + 7; i++) {
         if (i != 0) {
           ctx.font = '13px Baloo2';
           ctx.textAlign = 'center';
@@ -168,7 +169,7 @@ export class LoadProfileComponent implements AfterViewInit {
     beforeDatasetsDraw: (chart: any) => {
       const {ctx, scales: {x}} = chart;
       ctx.save();
-      for (var i = 0; i < x.ticks.length + 7; i++) {
+      for (let i = 0; i < x.ticks.length + 7; i++) {
         if (i != 0) {
           ctx.font = '13px Baloo2';
           ctx.textAlign = 'center';

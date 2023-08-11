@@ -13,9 +13,9 @@ export class GaugeComponent implements AfterViewInit {
 
   @Input() public id!: string;
 
-  @Input() public chartWidth: string = ""
+  @Input() public chartWidth = "";
 
-  @Input() public chartHeight: string = "";
+  @Input() public chartHeight = "";
 
   public label: string[] = ["Water consumption"];
   public percentage = 55;

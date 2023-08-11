@@ -11,9 +11,9 @@ export class GraphsComponent implements AfterContentInit {
 
   @Input() public id!: string;
 
-  @Input() public chartWidth: string = ""
+  @Input() public chartWidth = "";
 
-  @Input() public chartHeight: string = "";
+  @Input() public chartHeight = "";
 
   public ngAfterContentInit() {
     this.id = this.id + `_${Math.floor(Math.random() * 10000 + 1)}`;

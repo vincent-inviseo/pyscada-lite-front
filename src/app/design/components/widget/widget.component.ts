@@ -1,3 +1,5 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
+
 import { Component, Input, AfterViewInit, OnInit } from '@angular/core';
 
 @Component({
@@ -13,9 +15,9 @@ export class WidgetComponent implements AfterViewInit, OnInit {
 
   @Input() public chartType = "none";
 
-  @Input() public chartWidth: string = ""
+  @Input() public chartWidth = ""
 
-  @Input() public chartHeight: string = "";
+  @Input() public chartHeight = "";
 
   @Input() public colorLoneValue = "";
 
@@ -35,8 +37,6 @@ export class WidgetComponent implements AfterViewInit, OnInit {
 
   public ngOnInit(): void {
     this.idGraph = this.idGraph + `_${Math.floor(Math.random() * 10000 + 1)}`;
-
-    
   }
 
 }
