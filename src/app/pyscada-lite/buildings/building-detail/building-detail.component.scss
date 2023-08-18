@@ -1,0 +1,42 @@
+.widgetsContainer {
+    display: flex;
+    flex-direction: row;
+    .widgetBarGraph {
+        padding-top: 50px;
+        margin-left: 25px;
+        width: 50%;
+    }
+
+    .widgetsRightSide {
+        display: flex;
+        flex-direction: column;
+
+        .valueOnly {
+            display: flex;
+            flex-direction: row;
+
+            .loneValue {
+                margin-top: 50px;
+                margin-left: 15px;
+                width: 320px;
+                height: 130px;
+            }
+        
+            .loneValueRightmost {
+                margin-top: 50px;
+                margin-left: 15px;
+                margin-right: 15px;
+                width: 320px;
+                height: 130px;
+            }
+        }
+    
+        .lineChart {
+            display: flex;
+            flex-direction: column;
+            padding-top: 50px;
+            padding-left: 15px;
+            padding-right: 15px;
+        }
+    }
+}

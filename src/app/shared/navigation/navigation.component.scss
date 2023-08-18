@@ -50,10 +50,10 @@
   }
 
   ul {
+    justify-content: center;
+    align-items: center;
     margin-bottom: 40px;
     display: flex;
-    padding-left: 30px;
-    padding-right: 20px;
     transition: .3s;
     border-radius: 6px;
     flex-direction: row;
@@ -110,7 +110,7 @@
 
   .user {
     position: fixed;
-    margin-left: 15px;
+    margin-left: 5px;
     bottom: 30px;
     align-items: center;
     justify-content: center;

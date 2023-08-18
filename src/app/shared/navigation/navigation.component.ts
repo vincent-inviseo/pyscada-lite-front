@@ -17,8 +17,6 @@ import { InputBoolean } from 'src/app/design/decorators/input-boolean';
 })
 export class NavigationComponent {
 
-  // @Input() public user!: any;
-
   @Input() @InputBoolean() public isOpened = true;
   @Output() public menuclosed: EventEmitter<boolean> = new EventEmitter<boolean>();
 

@@ -1,0 +1,80 @@
+.widgetTitle {
+    background-color: #FFFFFF;
+    border-bottom: solid 1px var(--surface-border);
+    color: #000000;
+
+    .title {
+        font-size: 30px;
+        font-family: var(--main-title-font-family);
+        padding-bottom: 20px;
+        align-items: center;
+        justify-content: center;
+    }
+
+    .dot {
+        height: 25px;
+        width: 25px;
+        background-color: #bbb;
+        border-radius: 50%;
+        display: inline-block;
+        align-items: center;
+        justify-content: center;
+        
+      
+        &-blue {
+          background-color: var(--main-blue);
+          height: 25px;
+          width: 25px;
+          border-radius: 50%;
+          display: inline-block;
+          margin-top: 8px;
+          margin-left: 15px;
+          margin-right: 10px;
+        }
+    }
+
+    .right-icons {
+        position: relative;
+        border: none;
+        background: unset;
+        float: right;
+        padding-top: 15px;
+
+        i {
+            margin-right: 15px;
+        }
+    }
+}
+
+.mainArea {
+    background-color: #FFFFFF;
+
+    .input-calendar {
+        width: 300px;
+        padding-top: 10px;
+        padding-left: 10px;
+    }
+
+    .loneValueDesign {
+        padding-top: 10px;
+        padding-bottom: 10px;
+        text-align: center;
+        justify-content: center;
+
+        .loneValue {
+            font-size: 45px;
+        }
+        .unitLoneValue {
+            font-size: 25px;
+            color: var(--gray-500);
+        }
+    }
+
+    .chart {
+        margin-right: 15px;
+    }
+}
+
+::ng-deep .p-calendar {
+    height: 10px;
+}

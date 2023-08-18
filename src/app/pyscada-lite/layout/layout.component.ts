@@ -12,6 +12,4 @@ export class LayoutComponent {
 
   public isOpened = true;
 
-  constructor(
-  ) {}
 }

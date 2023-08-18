@@ -1,0 +1,24 @@
+<div class="widgetTitle">
+    <span class="dot-blue"></span>
+    <span class="title"> {{title}} </span>
+    <span class="right-icons">
+        <i class="pi pi-window-maximize"></i>
+        <i class="pi pi-ellipsis-v"></i>
+    </span>
+</div>
+<div class="mainArea">
+    <div class="input-calendar">
+        <p-calendar id="calendarRange" [(ngModel)]="rangeDates" selectionMode="range" [readonlyInput]="true" [showIcon]="true"></p-calendar>
+    </div>    
+    <div class="loneValueDesign" *ngIf="chartType === 'none'">
+        <span class="loneValue" [ngStyle]="{ 'color': colorLoneValue }"> {{loneValue}} </span>
+        <span class="unitLoneValue"> {{unitLoneValue}} </span>
+    </div>
+    <div class="chart" *ngIf="chartType !== 'none'">
+        <app-graphs [chartHeight]="chartHeight" [id]="idGraph" [graphType]="'barGraph'" *ngIf="chartType==='barGraph'"></app-graphs>
+        <app-graphs [id]="idGraph" [graphType]="'doughnut'" *ngIf="chartType==='doughnut'"></app-graphs>
+        <app-graphs [id]="idGraph" [graphType]="'gauge'" *ngIf="chartType==='gauge'"></app-graphs>
+        <app-graphs [id]="idGraph" [graphType]="'lineChart'" *ngIf="chartType==='lineChart'"></app-graphs>
+        <app-graphs [id]="idGraph" [graphType]="'loadProfile'" *ngIf="chartType==='loadProfile'"></app-graphs>
+    </div>
+</div>
