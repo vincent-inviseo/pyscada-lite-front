@@ -11,4 +11,8 @@ export class ChartService extends AbstractRequestService{
   public getChartById(chartId:any): Observable<any> {
     return this.http.get(`${this.apiUrl}/api/datas?chart_id=${chartId}`);
   }
+
+  public getVisibleCharts(is_visible:boolean): Observable<any> {
+    return this.http.get(`${this.apiUrl}/api/visible_charts?is_visible=${is_visible}`);
+  }
 }
