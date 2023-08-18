@@ -1,0 +1,24 @@
+.remember {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 30px;
+
+  a {
+    text-decoration: underline;
+    color: var(--blue-700);
+    font-size: 13px;
+  }
+}
+
+.actions {
+  app-button {
+    margin-bottom: 20px;
+  }
+
+}
+
+#logo {
+  height: 200px;
+  width: 200px;
+}

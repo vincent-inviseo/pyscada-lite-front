@@ -1,0 +1,56 @@
+:root {
+    /* VARIABLES */
+
+    --navigation-width: 9.5%;
+
+    --activity-width: 25%;
+
+    --gray-200: #F7F7FA;
+
+    --red-700: #D62C3F;
+
+    --red: #F50C00;
+    --red-s: #FFBBB7;
+    --red-d: #E00B00;
+    --red-l: #FFD8D6;
+    --red-ul: #FFECEB;
+    
+    /* MAIN COLORS UNIT */
+    --main-blue: #4C0BC6;
+    --main-bg-color: #f3f2fc;
+    --main-block-element-color: #ffffff;
+    --xl-light-blue: #997bff;
+    --main-title-color: #162D3D;
+    --main-subtitle-color: #8093A3;
+    --main-blue-hover: #36158D;
+    
+    
+    /* WIDTH */
+    --sidebar-width: 190px;
+    --container-width: calc( 100vw - var(--sidebar-width));
+    
+    /* MAIN ELEMENT COLOR */
+    --sidebar-bg-color: var(--main-blue);
+    --main-child-bg-color: var(--main-bg-color);
+    --card-color: var(--main-block-element-color);
+    --icon-color: var(--main-block-element-color);
+    --button-primary-color: var(--main-blue);
+    --button-primary-color-hover: var(--main-blue-hover);
+    
+    /* FONTS FAMILY */
+    --main-title-font-family: 'Baloo 2', sans-serif;
+    --main-subtitle-font-family: 'Baloo 2', sans-serif;;
+    --main-button-font-family: 'Baloo 2', sans-serif;;
+    
+    /* FONT SIZE */
+    --main-title-font-size: 30px;
+    --main-subtitle-font-size: 18px;
+    --main-font-size: 14px;
+    
+    /* FONT WEIGHT */
+    --main-title-font-weight: 700;
+    --main-subtitle-font-weight: 600;
+    }
+    
+    /* FONTS IMPORTS */
+    @import url('https://fonts.googleapis.com/css2?family=Baloo+2&display=swap');

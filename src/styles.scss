@@ -1,1 +1,6 @@
 /* You can add global styles to this file, and also import other style files */
+@use "assets/scss/imports";
+@use "assets/scss/normalize";
+@use "assets/scss/root";
+@use "assets/scss/auth";
+@use "assets/scss/view";

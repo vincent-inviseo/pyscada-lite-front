@@ -1,0 +1,41 @@
+<div class="auth" @fadeIn>
+  <div class="auth__content shadow-box">
+
+    <h1>
+      <img id="logo" width="350px" height="auto" src="../../../../assets/images/logo-inviseo.png" alt="Gallium Ingenierie">
+    </h1>
+    <p>Connectez-vous pour accéder au logiciel</p>
+    <form (submit)="submit()" #form="ngForm">
+      <app-input
+        type="email"
+        [required]="true"
+        [label]="'Adresse email'"
+        name="username"
+        id="username"
+                 
+        placeholder="Entrez votre addresse email"
+
+        [(ngModel)]="credential.email"
+      ></app-input>
+      <app-input
+        [required]="true"
+        [label]="'Mot de passe'"
+        type="password"
+        name="password" id="password"
+        [placeholder]="'Entrez votre mot de passe'"
+        [(ngModel)]="credential.password"
+      ></app-input>
+
+      <div class="actions">
+        <app-button
+        [loading]="loading" type="submit" full size="large"
+        id="connexion"
+        [disabled]="form.invalid" bgColor="primary-color">
+        Connexion
+      </app-button>
+      </div>
+    </form>
+  </div>
+
+</div>
+

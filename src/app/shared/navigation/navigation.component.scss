@@ -1,0 +1,138 @@
+@import "../../../assets/scss/mixin.scss";
+
+.main-navigation {
+  position: fixed;
+  top: 0;
+  z-index: 5;
+  bottom: 0;
+  background: var(--sidebar-bg-color);
+  width: var(--navigation-width);
+  padding: 30px 10px;
+  transition: 0.5s;
+  box-shadow: 10px 0px 16px -2px rgba(165,138,138,0.71);
+  -webkit-box-shadow: 10px 0px 16px -2px rgba(165,138,138,0.71);
+  -moz-box-shadow: 10px 0px 16px -2px rgba(165,138,138,0.71);
+  transition: 0.5s;
+  margin-right: 60px;
+
+  @include screen('phone') {
+    height: 100vh;
+    width: 100%;
+    transition: 0.5s;
+  }
+
+  #menu_close_icon {
+    display: none;
+    @include screen('tablet-portrait') {
+      display: block;
+    }
+  }
+
+
+  h1 {
+    margin: 0 0 50px;
+    display: flex;
+    justify-content: center;
+  }
+
+  a {
+    padding: 10px 13px;
+    display: flex;
+    align-items: center;
+    font-size: 14px;
+    font-weight: 500;
+    border-radius: 6px;
+    margin: 0 -13px;
+    position: relative;
+    transition: background-color 0.2s, color 0.2s;
+    cursor: pointer;
+    color: var(--main-block-element-color);
+  }
+
+  ul {
+    margin-bottom: 40px;
+    display: flex;
+    padding-left: 30px;
+    padding-right: 20px;
+    transition: .3s;
+    border-radius: 6px;
+    flex-direction: row;
+    cursor: pointer;
+    li {
+      display: flex;
+      flex-direction: row;
+      align-items: center;
+    }
+
+    &:before {
+      content: '';
+      position: absolute;
+      display: none;
+      width: 3px;
+      height: 100%;
+      top: 0;
+      left: -17px;
+      border-radius: 0 6px 6px 0;
+      background-color: var(--main-block-element-color);
+    }
+
+    &.active {
+      font-weight: bolder;
+      font-size: 16px;
+      color: var(--main-block-element-color);
+      a {
+        font-weight: 600;
+        color: var(--main-block-element-color);
+      }
+      i {
+        font-weight: 800;
+        font-size: 20px;
+      }
+
+      &:before {
+        display: block;
+      }
+    }
+  }
+
+  i {
+    margin: 0 13px 0 0;
+    font-size: 18px;
+    color: var(--main-block-element-color);
+  }
+
+  h5 {
+    font-size: 11px;
+    margin-bottom: 20px;
+    text-transform: uppercase;
+    color: var(--main-block-element-color);
+  }
+
+  .user {
+    position: fixed;
+    margin-left: 15px;
+    bottom: 30px;
+    align-items: center;
+    justify-content: center;
+    display: flex;
+  }
+  
+}
+
+.hide-main-navigation {
+  @include screen('phone') {
+    height: 100vh;
+    width: 100%;
+    transition: 0.5s;
+    display: none;
+    div, ul, h1, app-button {
+      display: none;
+    }
+  }
+}
+
+#logo {
+  height: 100px;
+  width: auto;
+}
+

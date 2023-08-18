@@ -1,0 +1,16 @@
+<div #mask [ngClass]="{
+  'overlay overlay-enter': config.modal !== false
+}" [class]="config.maskStyleClass ?? ''">
+<div #container class="dynamic-dialog dynamic-dialog-{{ config.direction ?? 'right' }}"
+[ngClass]="{'dynamic-dialog-right-leave': closing}" [ngStyle]="config.style" role="dialog" *ngIf="visible"
+[style.width]="config.width" [style.height]="config.height">
+<div class="dynamic-dialog-header">
+ <h2 class="dynamic-dialog-title">{{ config.title }}</h2>
+ <button class="dynamic-dialog-close" type="button" (click)="hide()" *ngIf="config.closable !== false">
+ </button>
+</div>
+<div class="dynamic-dialog-content">
+ <ng-template fcsDynamicDialogContent></ng-template>
+</div>
+</div>
+</div>

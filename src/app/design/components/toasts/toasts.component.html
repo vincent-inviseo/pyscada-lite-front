@@ -1,0 +1,10 @@
+<div class="toasts-wrapper">
+  <div class="messages">
+    <app-toast-item
+      *ngFor="let message of messages; let i = index;"
+      [msg]="message"
+      (erase)="message?.remove()"
+      [@toastAnimation]="i">
+    </app-toast-item>
+  </div>
+</div>

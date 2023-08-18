@@ -1,0 +1,23 @@
+<div class="toast-container toast--{{msg.type}}">
+  <div class="toast--content">
+    <div class="toast--icon">
+      <ng-container [ngSwitch]="msg.type">
+        <i *ngSwitchCase="'info'" class="pi pi-info-circle"></i>
+        <i *ngSwitchCase="'success'" class="pi pi-check-circle"></i>
+        <i *ngSwitchCase="'warning'" class="pi pi-exclamation-triangle"></i>
+        <i *ngSwitchCase="'error'" class="pi pi-exclamation-circle"></i>
+      </ng-container>
+    </div>
+    <div class="toast--message">
+      {{ msg.content }}
+      <div *ngIf="msg.callToAction" class="toast--action">
+        <button (click)="onClickCTA()">
+          {{ msg.callToAction.label }}
+        </button>
+      </div>
+    </div>
+  </div>
+  <div class="toast--delete" (click)="onDelete()">
+    <i class="pi pi-times"></i>
+  </div>
+</div>

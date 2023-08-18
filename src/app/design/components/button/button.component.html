@@ -1,0 +1,19 @@
+<button
+  [type]="type"
+  [disabled]="disabled"
+  class="button button-{{ size }} button-{{ bgColor }}"
+  [ngClass]="{
+		'button-ghost': ghost,
+		'button-dashed': dashed,
+		'is-loading': loading,
+		'button-full': full,
+		'button-icon': icon,
+		'button-icon-left': icon && !iconRight,
+		'button-icon-right': icon && iconRight,
+		'button-icon-only': iconOnly
+	}">
+  <ng-template [ngIf]="icon">
+    <i class="mr-10" [class]="icon"></i>
+  </ng-template>
+  <ng-content></ng-content>
+</button>

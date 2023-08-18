@@ -1,0 +1,130 @@
+.container {
+  .top-container {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    .actions {
+      display: flex;
+      width: 100%;
+      justify-content: flex-end;
+      #search {
+        padding-right: 60px;
+        width: 350px;
+      }
+      #building-plus {
+        margin-top: 5px;
+      }
+    }
+  }
+  .data-container {
+    display: flex;
+    flex-wrap: wrap;
+    .card {
+      width: 20%;
+      height: 150px;
+      display: flex;
+      flex-direction: column;
+      margin-right: 22px;
+      margin-bottom: 25px;
+      border-radius: 20px;
+      cursor: pointer;
+      background-color: var(--main-block-element-color);
+      border-radius: 6px;
+      box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
+      position: relative;
+      &_top {
+        .building-name {
+          padding-top: 10px;
+          text-align: center;
+          justify-content: center;
+          text-overflow: ellipsis;
+          white-space: nowrap;
+          width: 100%;
+          overflow: hidden;
+        }
+      }
+      &_body {
+        height: 100%;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        padding-left: 5px;
+        padding-right: 5px;
+        padding-bottom: 30px;
+      }
+      &_footer {
+        display: flex;
+        min-height: 20px;
+        position: absolute;
+        bottom: 5px;
+        width: 100%;
+        small {
+          display: flex;
+          justify-content: center;
+          width: 100%;
+          color: var(--gray-400);
+        }
+      }
+      &:hover {
+        box-shadow: var(--blue-500) 0px 5px 15px;
+      }
+    }
+  }
+
+  .activity-sidebar {
+    position: fixed;
+    right: 0;
+    top: 0;
+    z-index: 5;
+    bottom: 0;
+    background: #FFFFFF;
+    padding: 30px 10px;
+    transition: 0.5s;
+    padding-right: 40px;
+    border-left: solid 1px var(--surface-border);
+
+    #activity-title {
+      padding-left: 30px;
+    }
+
+    ul {
+      margin-bottom: 40px;
+      display: flex;
+      padding-left: 30px;
+      padding-right: 20px;
+      transition: .3s;
+      border-radius: 6px;
+      flex-direction: row;
+      cursor: pointer;
+      li {
+        display: flex;
+        flex-direction: row;
+        align-items: center;
+      }
+    }
+
+    .bottom {
+      position: fixed;
+      bottom: 0px;
+      align-items: center;
+      justify-content: center;
+      display: flex;
+
+      h1 {
+        display: flex;
+        justify-content: center;
+        padding-left: 50px;
+      }
+    }
+  }
+  
+}
+
+.zoom {
+  transition: transform .8s; /* Animation */
+}
+
+.zoom:hover {
+  transform: scale(1.05);
+}
