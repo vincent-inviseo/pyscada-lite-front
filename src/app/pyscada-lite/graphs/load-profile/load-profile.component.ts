@@ -194,7 +194,6 @@ export class LoadProfileComponent implements AfterViewInit {
         datasets: []
       },
       options: {
-        maintainAspectRatio: false,
         indexAxis: 'y',
         scales: {
           x: {

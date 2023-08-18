@@ -1,6 +1,6 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 
-import { Component, AfterViewInit, Input } from '@angular/core';
+import { Component, AfterViewInit, Input, OnChanges, SimpleChanges } from '@angular/core';
 import { Chart } from 'chart.js/auto';
 import zoomPlugin from 'chartjs-plugin-zoom';
 
@@ -10,13 +10,15 @@ import zoomPlugin from 'chartjs-plugin-zoom';
   styleUrls: ['./line-chart.component.scss']
 })
 
-export class LineChartComponent implements AfterViewInit {
+export class LineChartComponent implements AfterViewInit, OnChanges {
 
   @Input() public id!: string;
 
   @Input() public chartWidth = "";
 
   @Input() public chartHeight = "";
+
+  @Input() public resetZoom = false;
 
   public labelsValues = ["LUN", "MAR", "MER", "JEU", "VEN", "SAM", "DIM"];
   public valuesCurrentWeek = [55, 49, 44, 24, 15, 30, 60];
@@ -35,6 +37,12 @@ export class LineChartComponent implements AfterViewInit {
   public ngAfterViewInit(): void {
     Chart.register(zoomPlugin);
     this.setLineChart();
+  }
+
+  public ngOnChanges(changes: SimpleChanges) {
+    if (changes['resetZoom'].previousValue != undefined) {
+      this.resetZoomChart();
+    }
   }
 
   public setLineChart() {
@@ -130,7 +138,7 @@ export class LineChartComponent implements AfterViewInit {
     });
   }
 
-  public resetZoomChart() {
+  public resetZoomChart(): void {
     this.lineChart.resetZoom();
   }
 }

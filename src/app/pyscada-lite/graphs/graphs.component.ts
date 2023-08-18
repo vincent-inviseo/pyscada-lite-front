@@ -15,8 +15,12 @@ export class GraphsComponent implements AfterContentInit {
 
   @Input() public chartHeight = "";
 
+  @Input() public resetZoom = false;
+
+  /* ToDO @Input() in each graph */
+  @Input() public generateCsv = false;
+
   public ngAfterContentInit() {
     this.id = this.id + `_${Math.floor(Math.random() * 10000 + 1)}`;
   }
-
 }
