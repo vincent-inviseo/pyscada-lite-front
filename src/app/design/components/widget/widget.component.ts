@@ -1,6 +1,7 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 
 import { Component, Input, AfterViewInit, OnInit } from '@angular/core';
+import { ChartType } from 'src/app/models/chart-type';
 
 @Component({
   selector: 'app-widget',
@@ -9,17 +10,21 @@ import { Component, Input, AfterViewInit, OnInit } from '@angular/core';
 })
 export class WidgetComponent implements AfterViewInit, OnInit {
 
+  public chartTypes = new ChartType();
+
   @Input() public title = "";
 
   @Input() public idGraph!: string
 
-  @Input() public chartType = "none";
+  //@Input() public chartType = "number";
+
+  @Input() public chart!: any
 
   @Input() public chartWidth = ""
 
   @Input() public chartHeight = "";
 
-  @Input() public colorLoneValue = "";
+  @Input() public colorLoneValue = "var(--main-blue)";
 
   @Input() public loneValue!: string;
 
@@ -28,6 +33,8 @@ export class WidgetComponent implements AfterViewInit, OnInit {
   @Input() public datePattern!: string;
 
   @Input() public widgetDateInputId!: string;
+
+  public chartType = 'number';
 
   public rangeDates!: any;
 
@@ -43,6 +50,7 @@ export class WidgetComponent implements AfterViewInit, OnInit {
   }
 
   public ngOnInit(): void {
+    this.chartType = this.chartTypes.getNameByValue(this.chart.chart.chartType);  
     this.idGraph = this.idGraph + `_${Math.floor(Math.random() * 10000 + 1)}`;
     this.idDropdownContent = `dropdownContent_${Math.floor(Math.random() * 10000 + 1)}`;
     

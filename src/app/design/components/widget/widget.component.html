@@ -17,15 +17,15 @@
     <div class="input-calendar">
         <p-calendar id="calendarRange" [(ngModel)]="rangeDates" selectionMode="range" [readonlyInput]="true" [showIcon]="true"></p-calendar>
     </div>    
-    <div class="loneValueDesign" *ngIf="chartType === 'none'">
+    <div class="loneValueDesign" *ngIf="chartType === 'number'">
         <span class="loneValue" [ngStyle]="{ 'color': colorLoneValue }"> {{loneValue}} </span>
         <span class="unitLoneValue"> {{unitLoneValue}} </span>
     </div>
-    <div class="chart" *ngIf="chartType !== 'none'">
-        <app-graphs [chartHeight]="chartHeight" [chartWidth]="chartWidth" [id]="idGraph" [graphType]="'barGraph'" [generateCsv]="generateCsv" *ngIf="chartType==='barGraph'"></app-graphs>
-        <app-graphs [chartHeight]="chartHeight" [chartWidth]="chartWidth" [id]="idGraph" [graphType]="'doughnut'" [generateCsv]="generateCsv" *ngIf="chartType==='doughnut'"></app-graphs>
-        <app-graphs [chartHeight]="chartHeight" [chartWidth]="chartWidth" [id]="idGraph" [graphType]="'gauge'" [generateCsv]="generateCsv" *ngIf="chartType==='gauge'"></app-graphs>
-        <app-graphs [chartHeight]="chartHeight" [chartWidth]="chartWidth" [id]="idGraph" [graphType]="'lineChart'" [generateCsv]="generateCsv" [resetZoom]="resetZoom" *ngIf="chartType==='lineChart'"></app-graphs>
-        <app-graphs [chartHeight]="chartHeight" [chartWidth]="chartWidth" [id]="idGraph" [graphType]="'loadProfile'" [generateCsv]="generateCsv"  *ngIf="chartType==='loadProfile'"></app-graphs>
+    <div class="chart" *ngIf="chartType !== 'number'">
+        <app-graphs [chart]="chart" [chartHeight]="chartHeight" [chartWidth]="chartWidth" [id]="idGraph" [graphType]="'barGraph'" [generateCsv]="generateCsv" *ngIf="chartType==='barGraph'"></app-graphs>
+        <app-graphs [chart]="chart" [chartHeight]="chartHeight" [chartWidth]="chartWidth" [id]="idGraph" [graphType]="'doughnut'" [generateCsv]="generateCsv" *ngIf="chartType==='doughnut'"></app-graphs>
+        <app-graphs [chart]="chart" [chartHeight]="chartHeight" [chartWidth]="chartWidth" [id]="idGraph" [graphType]="'gauge'" [generateCsv]="generateCsv" *ngIf="chartType==='gauge'"></app-graphs>
+        <app-graphs [chart]="chart" [chartHeight]="chartHeight" [chartWidth]="chartWidth" [id]="idGraph" [graphType]="'lineChart'" [generateCsv]="generateCsv" [resetZoom]="resetZoom" *ngIf="chartType==='lineChart'"></app-graphs>
+        <app-graphs [chart]="chart" [chartHeight]="chartHeight" [chartWidth]="chartWidth" [id]="idGraph" [graphType]="'loadProfile'" [generateCsv]="generateCsv"  *ngIf="chartType==='loadProfile'"></app-graphs>
     </div>
 </div>
