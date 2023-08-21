@@ -12,7 +12,7 @@ export class ChartService extends AbstractRequestService{
     return this.http.get(`${this.apiUrl}/api/datas?chart_id=${chartId}`);
   }
 
-  public getVisibleCharts(is_visible:boolean): Observable<any> {
-    return this.http.get(`${this.apiUrl}/api/visible_charts?is_visible=${is_visible}`);
+  public getChartsIsVisibleByPageId(is_visible:any, page_id: any): Observable<any> {
+    return this.http.get(`${this.apiUrl}/api/charts?is_visible=${is_visible}&page_id=${page_id}`);
   }
 }

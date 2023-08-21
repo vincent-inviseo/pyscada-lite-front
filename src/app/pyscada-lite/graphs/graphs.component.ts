@@ -7,9 +7,11 @@ import { Component, Input, AfterContentInit } from '@angular/core';
 })
 export class GraphsComponent implements AfterContentInit {
 
-  @Input() public graphType: 'barGraph' | 'doughnut' | 'gauge' | 'lineChart' | 'loadProfile' | 'none' = 'none';
+  @Input() public graphType: 'barGraph' | 'doughnut' | 'gauge' | 'lineChart' | 'loadProfile' | 'number' = 'number';
 
   @Input() public id!: string;
+
+  @Input() public chart!: any;
 
   @Input() public chartWidth = "";
 

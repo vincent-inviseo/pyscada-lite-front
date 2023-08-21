@@ -12,9 +12,13 @@ export class BarGraphComponent implements AfterViewInit {
 
   @Input() public id!: string;
 
+  @Input() public chart!: any;
+
   @Input() public chartWidth = "";
 
   @Input() public chartHeight = "";
+
+  
 
   public xValues: string[] = ["Italy", "France", "Spain", "USA", "Argentina", "test"];
   public yValues2023: number[] = [55, 49, 44, 24, 15, 30];
@@ -25,11 +29,28 @@ export class BarGraphComponent implements AfterViewInit {
 
   public yAxisUnit = "kW";
 
+  /*
+
+  public title = ""
+
+  public xValues: string[] = [];
+  public yValuesSet1: number[] = [];
+  public yValuesSet2: number[] = [];
+
+  public colorBlue = "#4C0BC6";
+  public colorLightBlue = "#CCBEFF";
+
+  public yAxisUnit = "";
+
+  */
+
+
   public barBlue: string[] = [];
   public barLightBlue: string[] = [];
 
   public ngAfterViewInit(): void {
     this.opacityColors(this.yValues2023, this.yValues2022);
+    // this.opacityColors(this.yValuesSet1, this.yValuesSet2);
     this.setBarChart();
   }
 
@@ -57,7 +78,7 @@ export class BarGraphComponent implements AfterViewInit {
         {
           backgroundColor: this.barBlue,
           label: "2023",
-          data: this.yValues2023,
+          data: /* this.yValuesSet1, */ this.yValues2023,
           borderRadius: 15,
           borderWidth: 1,
           barThickness: 25,
@@ -66,7 +87,7 @@ export class BarGraphComponent implements AfterViewInit {
         {
           backgroundColor: this.barLightBlue,
           label: "2022",
-          data: this.yValues2022,
+          data: /* this.yValuesSet2, */  this.yValues2022,
           borderRadius: 15,
           borderWidth: 1,
           barThickness: 25,

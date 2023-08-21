@@ -7,6 +7,11 @@
         width: 50%;
     }
 
+    .widget {
+        padding-top: 50px;
+        margin-left: 25px;
+    }
+
     .widgetsRightSide {
         display: flex;
         flex-direction: column;
@@ -34,6 +39,12 @@
         .lineChart {
             display: flex;
             flex-direction: column;
+            padding-top: 50px;
+            padding-left: 15px;
+            padding-right: 15px;
+        }
+
+        .widgetRightSide {
             padding-top: 50px;
             padding-left: 15px;
             padding-right: 15px;

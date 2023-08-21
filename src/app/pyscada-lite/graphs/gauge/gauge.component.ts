@@ -13,6 +13,8 @@ export class GaugeComponent implements AfterViewInit {
 
   @Input() public id!: string;
 
+  @Input() public chart!: any;
+
   @Input() public chartWidth = "";
 
   @Input() public chartHeight = "";

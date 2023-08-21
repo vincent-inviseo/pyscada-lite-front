@@ -1,19 +1,19 @@
 <div *ngIf="graphType === 'barGraph'">
-    <app-bar-graph [chartWidth]="chartWidth" [chartHeight]="chartHeight" [id]="id"></app-bar-graph>
+    <app-bar-graph [chart]="chart" [chartWidth]="chartWidth" [chartHeight]="chartHeight" [id]="id"></app-bar-graph>
 </div>
 
 <div *ngIf="graphType === 'doughnut'">
-    <app-doughnut [chartWidth]="chartWidth" [chartHeight]="chartHeight" [id]="id"></app-doughnut>
+    <app-doughnut [chart]="chart" [chartWidth]="chartWidth" [chartHeight]="chartHeight" [id]="id"></app-doughnut>
 </div>
 
 <div *ngIf="graphType === 'gauge'">
-    <app-gauge [chartWidth]="chartWidth" [chartHeight]="chartHeight" [id]="id"></app-gauge>
+    <app-gauge [chart]="chart" [chartWidth]="chartWidth" [chartHeight]="chartHeight" [id]="id"></app-gauge>
 </div>
 
 <div *ngIf="graphType === 'lineChart'">
-    <app-line-chart [chartWidth]="chartWidth" [chartHeight]="chartHeight" [id]="id" [resetZoom]="resetZoom"></app-line-chart>
+    <app-line-chart [chart]="chart" [chartWidth]="chartWidth" [chartHeight]="chartHeight" [id]="id" [resetZoom]="resetZoom"></app-line-chart>
 </div>
 
 <div *ngIf="graphType === 'loadProfile'">
-    <app-load-profile [chartWidth]="chartWidth" [chartHeight]="chartHeight" [id]="id"></app-load-profile>
+    <app-load-profile [chart]="chart" [chartWidth]="chartWidth" [chartHeight]="chartHeight" [id]="id"></app-load-profile>
 </div>
