@@ -14,7 +14,11 @@ const routes: Routes = [
     component: BuildingsComponent
   },
   {
-    path: ':id',
+    path: ':building_id/pages/:page_id',
+    component: BuildingDetailComponent
+  },
+  {
+    path: ':building_id/pages',
     component: BuildingDetailComponent
   }
 ];

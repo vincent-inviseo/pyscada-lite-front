@@ -11,9 +11,16 @@
       <a>Accueil</a>
     </li>
   </ul>
-  <ul routerLinkActive="active" (click)="closeMenu()">
-    
-  </ul>
+  <div class="pagesLink">
+    <div *ngFor="let page of pagesList">
+      <ul routerLinkActive="active" (click)="closeMenu()" *ngIf="page.visible">
+        <li [routerLink]="['/buildings/' + page.building + '/pages/' + page.id]">
+          <a>{{page.link_name}}</a>
+        </li>
+      </ul>
+    </div>
+  </div>
+  
   <div class="user logout">
       <i class="pi pi-sign-out"></i>
     <a class="logout" (click)="logout()">

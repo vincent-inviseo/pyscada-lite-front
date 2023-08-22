@@ -35,6 +35,8 @@ export class NavigationComponent implements OnInit {
         this.pagesList.push(pages[i]);
       }
     })
+    console.log(this.pagesList);
+    
   }
 
   public logout(): void {
