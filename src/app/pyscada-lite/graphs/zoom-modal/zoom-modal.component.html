@@ -1,0 +1,11 @@
+<div class="createform">
+    <div class="createform__content">
+        <div class="chart" *ngIf="chartType !== 'number'">
+            <app-graphs [chart]="chart" [chartHeight]="chartHeight" [chartWidth]="chartWidth" [id]="idGraph" [graphType]="'barGraph'" *ngIf="chartType==='barGraph'"></app-graphs>
+            <app-graphs [chart]="chart" [chartHeight]="chartHeight" [chartWidth]="chartWidth" [id]="idGraph" [graphType]="'doughnut'" *ngIf="chartType==='doughnut'"></app-graphs>
+            <app-graphs [chart]="chart" [chartHeight]="chartHeight" [chartWidth]="chartWidth" [id]="idGraph" [graphType]="'gauge'" *ngIf="chartType==='gauge'"></app-graphs>
+            <app-graphs [chart]="chart" [chartHeight]="chartHeight" [chartWidth]="chartWidth" [id]="idGraph" [graphType]="'lineChart'" *ngIf="chartType==='lineChart'"></app-graphs>
+            <app-graphs [chart]="chart" [chartHeight]="chartHeight" [chartWidth]="chartWidth" [id]="idGraph" [graphType]="'loadProfile'"  *ngIf="chartType==='loadProfile'"></app-graphs>
+        </div>
+    </div>
+  </div>

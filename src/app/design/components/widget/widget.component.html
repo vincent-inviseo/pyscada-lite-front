@@ -2,7 +2,7 @@
     <span class="dot-blue"></span>
     <span class="title"> {{title}} </span>
     <span class="right-icons">
-        <i class="pi pi-window-maximize"></i>
+        <i class="pi pi-window-maximize" (click)="zoomGrapModal(chart)"></i>
         <div class="dropdown">
             <i class="pi pi-ellipsis-v" (click)="showDropdownContent()"></i>
             <div [id]="idDropdownContent" class="dropdown-content">

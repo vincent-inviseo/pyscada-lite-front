@@ -38,7 +38,6 @@ export class BuildingDetailComponent implements OnInit {
               for(let chart_id of charts_ids.charts_ids) {
                 if (chart_id) {
                   this.chartService.getChartById(chart_id).subscribe((chart_datas) => {
-                    // let test =  this.chartTypes.getNameByValue(chart_datas.chart.chartType);
                     this.charts.push(chart_datas);
                  })
                 }
@@ -48,6 +47,5 @@ export class BuildingDetailComponent implements OnInit {
         }
       })
     })
-    console.log("charts", this.charts);
   }
 }

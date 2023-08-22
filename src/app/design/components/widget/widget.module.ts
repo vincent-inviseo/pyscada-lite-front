@@ -4,6 +4,7 @@ import { WidgetComponent } from './widget.component';
 import { GraphsModule } from 'src/app/pyscada-lite/graphs/graphs.module';
 import { CalendarModule } from 'primeng/calendar';
 import { FormsModule } from '@angular/forms';
+import { DialogService } from 'primeng/dynamicdialog';
 
 @NgModule({
   declarations: [WidgetComponent],
@@ -13,6 +14,7 @@ import { FormsModule } from '@angular/forms';
     CalendarModule,
     FormsModule
 ],
+providers: [DialogService],
   exports: [WidgetComponent],
 })
 export class WidgetModule {}

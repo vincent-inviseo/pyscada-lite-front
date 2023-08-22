@@ -3,6 +3,8 @@
 import { Component, Input, AfterViewInit, OnInit } from '@angular/core';
 import { ChartType } from 'src/app/models/chart-type';
 import { ExportDataAsCsvService } from 'src/app/services/export-as-csv';
+import { ZoomModalComponent } from 'src/app/pyscada-lite/graphs/zoom-modal/zoom-modal.component';
+import { DialogService } from 'primeng/dynamicdialog';
 
 @Component({
   selector: 'app-widget',
@@ -16,8 +18,6 @@ export class WidgetComponent implements AfterViewInit, OnInit {
   @Input() public title = "";
 
   @Input() public idGraph!: string
-
-  //@Input() public chartType = "number";
 
   @Input() public chart!: any
 
@@ -47,7 +47,8 @@ export class WidgetComponent implements AfterViewInit, OnInit {
   public generateCsv = false;
 
   constructor(
-    private readonly exportAsCsvService: ExportDataAsCsvService
+    private readonly exportAsCsvService: ExportDataAsCsvService,
+    private readonly primeNgDialogService: DialogService,
   ) {}
 
   public ngAfterViewInit(): void {
@@ -71,6 +72,13 @@ export class WidgetComponent implements AfterViewInit, OnInit {
         }
       }
     }
+  }
+
+  public zoomGrapModal(chart:any): void {
+    const dialog = this.primeNgDialogService.open(ZoomModalComponent, {
+      data: chart
+    });
+
   }
 
   public showDropdownContent(): void {
