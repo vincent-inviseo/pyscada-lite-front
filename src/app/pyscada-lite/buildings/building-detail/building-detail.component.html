@@ -5,7 +5,12 @@
         <div class="widget" *ngIf="chart.chart.position===0 || chart.chart.position===1">
             <div class="" [ngStyle]="{ 'width': chart.chart.width }">
                 <!-- <app-widget  [chart]="chart" ></app-widget> -->
-                <app-widget [title]="chart.chart.name" [chartHeight]="'50vh'" [chart]="chart" *ngIf="chart.chart.chartType===0"></app-widget>
+                <app-widget [title]="chart.chart.name" [chartHeight]="'50vh'" [chart]="chart" *ngIf="chartTypes.getNameByValue(chart.chart.chartType)==='barGraph'"></app-widget>
+                <app-widget [title]="chart.chart.name" [chartHeight]="'50vh'" [chart]="chart" *ngIf="chartTypes.getNameByValue(chart.chart.chartType)==='lineChart'"></app-widget>
+                <app-widget [title]="chart.chart.name" [chartHeight]="'30vh'" [chart]="chart" *ngIf="chartTypes.getNameByValue(chart.chart.chartType)==='doughnut'"></app-widget>
+                <app-widget [title]="chart.chart.name" [chartHeight]="'30vh'" [chart]="chart" *ngIf="chartTypes.getNameByValue(chart.chart.chartType)==='gauge'"></app-widget>
+                <app-widget [title]="chart.chart.name" [chartHeight]="'50vh'" [chart]="chart" *ngIf="chartTypes.getNameByValue(chart.chart.chartType)==='loadProfile'"></app-widget>
+                <app-widget [title]="chart.chart.name" [chart]="chart" *ngIf="chartTypes.getNameByValue(chart.chart.chartType)==='number'"></app-widget>
             </div>
         </div>
     </div>
@@ -13,7 +18,11 @@
         <div class="widgetsRightSide" *ngIf="chart.chart.position>1">
             <div class="widgetRightSide"  [ngStyle]="{ 'width': chart.chart.width }">
                 <app-widget [title]="chart.chart.name" [chartHeight]="'50vh'" [chart]="chart" *ngIf="chartTypes.getNameByValue(chart.chart.chartType)==='barGraph'"></app-widget>
-                <app-widget [title]="chart.chart.name" [chartWidth]="chart.chart.width" [chartHeight]="'50vh'" [chart]="chart" *ngIf="chartTypes.getNameByValue(chart.chart.chartType)==='lineChart'"></app-widget>
+                <app-widget [title]="chart.chart.name" [chartHeight]="'50vh'" [chart]="chart" *ngIf="chartTypes.getNameByValue(chart.chart.chartType)==='lineChart'"></app-widget>
+                <app-widget [title]="chart.chart.name" [chartHeight]="'30vh'" [chart]="chart" *ngIf="chartTypes.getNameByValue(chart.chart.chartType)==='doughnut'"></app-widget>
+                <app-widget [title]="chart.chart.name" [chartHeight]="'30vh'" [chart]="chart" *ngIf="chartTypes.getNameByValue(chart.chart.chartType)==='gauge'"></app-widget>
+                <app-widget [title]="chart.chart.name" [chartHeight]="'50vh'" [chart]="chart" *ngIf="chartTypes.getNameByValue(chart.chart.chartType)==='loadProfile'"></app-widget>
+                <app-widget [title]="chart.chart.name" [chart]="chart" *ngIf="chartTypes.getNameByValue(chart.chart.chartType)==='number'"></app-widget>
             </div>
         </div>
     </div>
