@@ -7,7 +7,7 @@
             <i class="pi pi-ellipsis-v" (click)="showDropdownContent()"></i>
             <div [id]="idDropdownContent" class="dropdown-content">
                 <p class="option" (click)="askResetZoomChart()"  *ngIf="chartType==='lineChart'">Réinitialiser zoom</p>
-                <p class="option" (click)="askExportDatas()">Exporter les données</p>
+                <p class="option" (click)="askExportDatas(chart)">Exporter les données</p>
                 <p class="option">Agrégation des données</p>
             </div> 
         </div>

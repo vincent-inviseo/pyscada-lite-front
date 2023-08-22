@@ -2,6 +2,7 @@
 
 import { Component, Input, AfterViewInit, OnInit } from '@angular/core';
 import { ChartType } from 'src/app/models/chart-type';
+import { ExportDataAsCsvService } from 'src/app/services/export-as-csv';
 
 @Component({
   selector: 'app-widget',
@@ -44,6 +45,10 @@ export class WidgetComponent implements AfterViewInit, OnInit {
 
   /* ToDO form for the generation of the csv file */
   public generateCsv = false;
+
+  constructor(
+    private readonly exportAsCsvService: ExportDataAsCsvService
+  ) {}
 
   public ngAfterViewInit(): void {
     this.widgetDateInputId = this.widgetDateInputId + `_${Math.floor(Math.random() * 10000 + 1)}`;
