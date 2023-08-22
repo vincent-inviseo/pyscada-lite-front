@@ -8,6 +8,7 @@ import { LineChartComponent } from './line-chart/line-chart.component';
 import { NgChartsConfiguration, NgChartsModule } from 'ng2-charts';
 import { LoadProfileComponent } from './load-profile/load-profile.component';
 import { GraphsComponent } from './graphs.component';
+import { ZoomModalComponent } from './zoom-modal/zoom-modal.component';
 
 @NgModule({
   declarations: [
@@ -16,7 +17,8 @@ import { GraphsComponent } from './graphs.component';
     GaugeComponent,
     LineChartComponent,
     LoadProfileComponent,
-    GraphsComponent
+    GraphsComponent,
+    ZoomModalComponent
   ],
   imports: [
     CommonModule,
