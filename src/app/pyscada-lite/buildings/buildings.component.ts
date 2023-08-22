@@ -44,10 +44,14 @@ export class BuildingsComponent implements OnInit {
     })
   }
 
-  public getPagesByBuildingId(building_id: any): void {
+  public navigateToDefaultPage(building_id: any): void {
     this.pageService.getPagesByBuildingId(building_id).subscribe((pages) => {
-
-
+      if (pages.pages.length > 0) {
+        this.router.navigate(["/buildings/", building_id, "pages", pages.pages[0].id]);
+      }
+      else {
+        this.router.navigate(["/buildings/", building_id]);
+      }
     })
   }
 
