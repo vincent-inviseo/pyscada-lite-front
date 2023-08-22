@@ -18,7 +18,7 @@ const routes: Routes = [
     component: BuildingDetailComponent
   },
   {
-    path: ':building_id/pages',
+    path: ':building_id',
     component: BuildingDetailComponent
   }
 ];
