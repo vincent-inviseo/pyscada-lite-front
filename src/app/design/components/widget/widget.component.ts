@@ -105,8 +105,7 @@ export class WidgetComponent implements AfterViewInit, OnInit {
     this.resetZoom = !this.resetZoom;
   }
 
-  public askExportDatas(chart:any): void {
-    let values = [...this.chart.datas.variables.map( (v:any) => v.values.value)]
-    this.exportAsCsvService.exportToCsv(values[0], 'exporteddata.csv') 
+  public askExportDatas(): void {
+    this.generateCsv = !this.generateCsv; 
   }
 }

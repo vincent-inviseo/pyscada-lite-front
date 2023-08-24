@@ -5,6 +5,7 @@ import { Chart } from 'chart.js/auto';
 import zoomPlugin from 'chartjs-plugin-zoom';
 import { DateCleanerGraphService } from 'src/app/services/date-cleaner-graph.service';
 import { ChartService } from 'src/app/requests/chart.service';
+import { ExportDataAsCsvService } from 'src/app/services/export-as-csv';
 
 @Component({
   selector: 'app-line-chart',
@@ -16,7 +17,8 @@ export class LineChartComponent implements AfterViewInit, OnChanges {
 
   constructor(
     private readonly dateCleanerGraphService: DateCleanerGraphService,
-    private readonly chartService: ChartService
+    private readonly chartService: ChartService,
+    private readonly exportAsCsvService: ExportDataAsCsvService
     ) {}
 
   @Input() public id!: string;
@@ -31,9 +33,11 @@ export class LineChartComponent implements AfterViewInit, OnChanges {
 
   @Input() public resetZoom = false;
 
-  public xAxislabels: string[] = [];
+  @Input() public generateCsv = false;
+
+  public xAxisLabels: string[] = [];
   public yAxisLabel = "";
-  public datasetslabels: string[] = [];
+  public datasetsLabels: string[] = [];
 
   public datasetsData: any[] = [];
 
@@ -82,7 +86,7 @@ export class LineChartComponent implements AfterViewInit, OnChanges {
       this.setLineChart();
       this.lineChart!.options!.scales!['y']!.min = this.yAxisMin;
       this.lineChart!.options!.scales!['y']!.max = this.yAxisMax;
-      this.lineChart.data.labels = this.xAxislabels;
+      this.lineChart.data.labels = this.xAxisLabels;
       this.setDatasetsLineChart();
       this.lineChart.update();
     }
@@ -98,8 +102,11 @@ export class LineChartComponent implements AfterViewInit, OnChanges {
         this.resetZoomChart();
       }
     }
-    
-    
+    if (changes['generateCsv'] != undefined) {
+      if (changes['generateCsv'].previousValue != undefined) {
+        this.askExportDatas();
+      }
+    }
     if (changes['rangeDates'] != undefined) {
       if (changes['rangeDates'].previousValue != undefined) {
         const date_start = this.dateCleanerGraphService.cleanDateForFilterBackend(this.rangeDates[0]);
@@ -123,8 +130,8 @@ export class LineChartComponent implements AfterViewInit, OnChanges {
   // Note: need to handle case of a variable with no value at a given time
   public setAllValuesDatasets(chart: any) {
     this.datasetsData = [];
-    this.datasetslabels = [];
-    this.xAxislabels = [];
+    this.datasetsLabels = [];
+    this.xAxisLabels = [];
     let minValuesSet: number;
     let maxValuesSet: number;
     this.yAxisLabel = chart.chart.legende_axe_y;
@@ -133,14 +140,14 @@ export class LineChartComponent implements AfterViewInit, OnChanges {
       this.valuesSet = [];
       const variable = variables[i];
       const valuesList = variable.values;
-      this.datasetslabels.push(variable.name);
+      this.datasetsLabels.push(variable.name);
       for (let j = 0; j < valuesList.length; j++) {
         const cleanRecordedAt = this.dateCleanerGraphService.cleanDateGraph(valuesList[j].recordedAt);
         if (cleanRecordedAt && i == 0) {
-          this.xAxislabels.push(cleanRecordedAt.toString());
+          this.xAxisLabels.push(cleanRecordedAt.toString());
         }
         else if (i == 0) {
-          this.xAxislabels.push(valuesList[j].recordedAt);
+          this.xAxisLabels.push(valuesList[j].recordedAt);
         }
         this.valuesSet.push(valuesList[j].value);
       }
@@ -162,11 +169,11 @@ export class LineChartComponent implements AfterViewInit, OnChanges {
     }
   }
 
-  public updateLineChart(chart: any) : void {
+  public updateLineChart(chart: any): void {
     this.setAllValuesDatasets(chart);
     this.lineChart!.options!.scales!['y']!.min = this.yAxisMin - 1;
     this.lineChart!.options!.scales!['y']!.max = this.yAxisMax + 1;
-    this.lineChart.data.labels = this.xAxislabels;
+    this.lineChart.data.labels = this.xAxisLabels;
     this.setDatasetsLineChart();
     this.lineChart.update();
   }
@@ -176,7 +183,7 @@ export class LineChartComponent implements AfterViewInit, OnChanges {
     for (let i = 0; i < this.datasetsData.length; i++) {
       const dataset =
       {
-        label: this.datasetslabels[i],
+        label: this.datasetsLabels[i],
         data: this.datasetsData[i],
         pointRadius: 0,
         tension: 0.35
@@ -257,5 +264,10 @@ export class LineChartComponent implements AfterViewInit, OnChanges {
 
   public resetZoomChart(): void {
     this.lineChart.resetZoom();
+  }
+
+  public askExportDatas(): void {
+    let values = [...this.chart.datas.variables.map( (v:any) => v.values)];
+    this.exportAsCsvService.exportToCsv(values[0], 'exportedData.csv');
   }
 }
