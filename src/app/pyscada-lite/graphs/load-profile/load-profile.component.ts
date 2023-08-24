@@ -17,6 +17,8 @@ export class LoadProfileComponent implements AfterViewInit {
 
   @Input() public id!: string;
 
+  @Input() public rangeDates!: any[];
+
   public idLegend!: string;
 
   constructor() {

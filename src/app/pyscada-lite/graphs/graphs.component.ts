@@ -1,4 +1,5 @@
 import { Component, Input, AfterContentInit } from '@angular/core';
+import { DateCleanerGraphService } from 'src/app/services/date-cleaner-graph.service';
 
 @Component({
   selector: 'app-graphs',
@@ -6,6 +7,8 @@ import { Component, Input, AfterContentInit } from '@angular/core';
   styleUrls: ['./graphs.component.scss']
 })
 export class GraphsComponent implements AfterContentInit {
+
+  constructor(private readonly dateCleanerGraphService: DateCleanerGraphService) {}
 
   @Input() public graphType: 'barGraph' | 'doughnut' | 'gauge' | 'lineChart' | 'loadProfile' | 'number' = 'number';
 
@@ -16,6 +19,8 @@ export class GraphsComponent implements AfterContentInit {
   @Input() public chartWidth = "";
 
   @Input() public chartHeight = "";
+
+  @Input() public rangeDates!: any[];
 
   @Input() public resetZoom = false;
 

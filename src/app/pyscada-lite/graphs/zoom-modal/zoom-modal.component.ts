@@ -20,11 +20,11 @@ import { ChartType } from "src/app/models/chart-type";
       public dialogRef: DynamicDialogRef,
       public config: DynamicDialogConfig,
     ) {
-      this.chart = this.config.data.chart;
+      this.chart = this.config.data;
     }
 
     public ngOnInit(): void {
       this.idGraph = `modal_${Math.floor(Math.random() * 10000 + 1)}`;
-      this.chartType = this.chartTypes.getNameByValue(this.chart.chartType);      
+      this.chartType = this.chartTypes.getNameByValue(this.chart.chart.chartType);      
     }
   }

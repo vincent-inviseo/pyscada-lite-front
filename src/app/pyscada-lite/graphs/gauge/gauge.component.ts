@@ -19,6 +19,8 @@ export class GaugeComponent implements AfterViewInit {
 
   @Input() public chartHeight = "";
 
+  @Input() public rangeDates!: any[];
+
   public label: string[] = ["Water consumption"];
   public percentage = 55;
   public gaugeColor = "#4C0BC6"

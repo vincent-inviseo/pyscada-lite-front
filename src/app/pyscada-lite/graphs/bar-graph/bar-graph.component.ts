@@ -18,7 +18,7 @@ export class BarGraphComponent implements AfterViewInit {
 
   @Input() public chartHeight = "";
 
-  
+  @Input() public rangeDates!: any[];
 
   public xValues: string[] = ["Italy", "France", "Spain", "USA", "Argentina", "test"];
   public yValues2023: number[] = [55, 49, 44, 24, 15, 30];
