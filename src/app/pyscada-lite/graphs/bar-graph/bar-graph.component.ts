@@ -258,7 +258,6 @@ export class BarGraphComponent implements AfterViewInit, OnChanges {
             enabled: true,
             callbacks: {
               label: (items: any) => { 
-                console.log(items);
                 const datasetIndex = items.datasetIndex
                 return items.dataset.label + ": " + items.raw + ' ' + this.datasetsUnits[datasetIndex]
               }

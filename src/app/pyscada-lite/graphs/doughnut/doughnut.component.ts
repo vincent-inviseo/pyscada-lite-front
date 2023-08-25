@@ -1,7 +1,10 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 
-import { Component, AfterViewInit, Input } from '@angular/core';
+import { Component, AfterViewInit, Input, OnChanges, SimpleChanges } from '@angular/core';
 import { Chart } from 'chart.js/auto';
+import { ExportDataAsCsvService } from 'src/app/services/export-as-csv';
+import { ChartService } from 'src/app/requests/chart.service';
+import { DateCleanerGraphService } from 'src/app/services/date-cleaner-graph.service';
 
 @Component({
   selector: 'app-doughnut',
@@ -9,7 +12,13 @@ import { Chart } from 'chart.js/auto';
   styleUrls: ['./doughnut.component.scss']
 })
 
-export class DoughnutComponent implements AfterViewInit {
+export class DoughnutComponent implements AfterViewInit, OnChanges {
+
+  constructor(
+    private readonly dateCleanerGraphService: DateCleanerGraphService,
+    private readonly chartService: ChartService,
+    private readonly exportAsCsvService: ExportDataAsCsvService 
+  ) {}
 
   @Input() public id!: string;
 
@@ -25,39 +34,69 @@ export class DoughnutComponent implements AfterViewInit {
 
   public labelsValues = ["Italy", "France", "Spain", "USA", "Argentina", "test"];
   public values = [55, 49, 44, 24, 15, 30];
-  public colors = ["#4C0BC6", "#02C794", "#FAC528", "#27BEF2", "#EA4C87", "#000000"]
-
-  public canvas = document.getElementById("myChart");
+  public colors = ["#4C0BC6", "#02C794", "#FAC528", "#27BEF2", "#EA4C87", "#000000"];
 
   public sumValues = 0;
+
+  public doughnut!: Chart<"doughnut", number[], string>;
 
   public ngAfterViewInit(): void {
     this.values.forEach(value => { this.sumValues = this.sumValues + value });
     this.setDoughnut();
   }
 
+  public ngOnChanges(changes: SimpleChanges): void {
+    if (changes['generateCsv'] != undefined) {
+      if (changes['generateCsv'].previousValue != undefined) {
+        this.askExportDatas();
+      }
+    }
+    /*
+    if (changes['rangeDates'] != undefined) {
+      if (changes['rangeDates'].previousValue != undefined) {
+        const date_start = this.dateCleanerGraphService.cleanDateForFilterBackend(this.rangeDates[0]);
+        let date_end!: string;
+        if (this.rangeDates[1] == null) {
+          const currentDatetime = new Date();
+          date_end = this.dateCleanerGraphService.cleanDateForFilterBackend(currentDatetime).toString();
+        }
+        else {
+          date_end = this.dateCleanerGraphService.cleanDateForFilterBackend(this.rangeDates[1]).toString();
+        }
+        this.chartService.getVariablesValuesByRangeDatesAndChartId(this.chart.chart.id, date_start, date_end).subscribe((variablesValues) => {
+          this.chart.datas.variables = variablesValues;
+          // this.updateDoughnut(this.chart);
+        })
+      }
+    }
+    */
+  }
+
   centerText = {
     id: 'centerText',
     afterDatasetsDraw: (chart: any) => {
-      const { ctx } = chart;
+      const { ctx, chartArea: {top, left, width, height} } = chart;
       if (chart._active.length > 0) {
         const value = chart.config.data.datasets[chart._active[0].datasetIndex].data[chart._active[0].index];
         ctx.save();
+        
         const x = chart.getDatasetMeta(0).data[0].x;
-        const y = chart.getDatasetMeta(0).data[0].y;
-        ctx.font = "30px Baloo2";
+        
+        const sizeText = (x + (left + x / 2)) / 7;
+
+        ctx.font = "" + sizeText + "px Baloo2";
         ctx.fillStyle = 'black';
         ctx.textAlign = 'center';
         ctx.textBaseline = 'middle';
-        ctx.fillText((100 * value / this.sumValues).toFixed(2) + '%', x, y);
+        ctx.fillText((100 * value / this.sumValues).toFixed(2) + ' %', left + width / 2, top + height / 2);
         chart.update();
       }
     }
   };
 
   public setDoughnut() {
-    Chart.defaults.font.family = "Baloo2";
-    new Chart(this.id, {
+    Chart.defaults.font.family = "Baloo 2";
+    this.doughnut = new Chart(this.id, {
       type: 'doughnut',
       data: {
           labels: this.labelsValues,
@@ -73,24 +112,7 @@ export class DoughnutComponent implements AfterViewInit {
         maintainAspectRatio: false,
         plugins: {
           legend: {
-            display: true,
-            labels: {
-              font: {
-                family: "Baloo2",
-                size: 1
-              }
-            }
-          },
-          title: {
-            display: true,
-            text: "World Wine Production 2018",
-            padding: {
-                top: 10
-              },
-            font: {
-              family: "bolder Baloo2",
-              size: 20
-            },
+            display: false,
           },
           tooltip: {
             enabled: true,
@@ -107,6 +129,11 @@ export class DoughnutComponent implements AfterViewInit {
         },
       },
       plugins: [this.centerText]
-  })
+    })
+  }
+
+  public askExportDatas(): void {
+    const values = [...this.chart.datas.variables.map( (v:any) => v.values)];
+    this.exportAsCsvService.exportToCsv(values[0], 'exportedData.csv');
   }
 }
