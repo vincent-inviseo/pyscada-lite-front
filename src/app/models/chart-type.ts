@@ -1,3 +1,5 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
+
 export class ChartType {
     private barGraph = {name: 'barGraph', value: 0};
     private lineChart = {name: 'lineChart', value: 1};

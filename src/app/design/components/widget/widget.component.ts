@@ -1,8 +1,8 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
+/* eslint-disable @typescript-eslint/no-unused-vars */
 
 import { Component, Input, AfterViewInit, OnInit } from '@angular/core';
 import { ChartType } from 'src/app/models/chart-type';
-import { ExportDataAsCsvService } from 'src/app/services/export-as-csv';
 import { ZoomModalComponent } from 'src/app/pyscada-lite/graphs/zoom-modal/zoom-modal.component';
 import { DialogService } from 'primeng/dynamicdialog';
 import { ChartService } from 'src/app/requests/chart.service';
@@ -45,11 +45,9 @@ export class WidgetComponent implements AfterViewInit, OnInit {
 
   public resetZoom = false;
 
-  /* ToDO form for the generation of the csv file */
   public generateCsv = false;
 
   constructor(
-    private readonly exportAsCsvService: ExportDataAsCsvService,
     private readonly primeNgDialogService: DialogService,
     private readonly chartService: ChartService,
     private readonly dateCleanerGraphService: DateCleanerGraphService
@@ -61,16 +59,10 @@ export class WidgetComponent implements AfterViewInit, OnInit {
 
   public ngOnInit(): void {
     const currentDatetime = new Date();
-    let datetime24HoursBefore = new Date();
+    const datetime24HoursBefore = new Date();
     datetime24HoursBefore.setDate(datetime24HoursBefore.getDate() - 1);
     this.rangeDates.push(datetime24HoursBefore);
     this.rangeDates.push(currentDatetime);
-
-    const date_start = this.dateCleanerGraphService.cleanDateForFilterBackend(this.rangeDates[0]).toString();
-    const date_end = this.dateCleanerGraphService.cleanDateForFilterBackend(this.rangeDates[1]).toString();
-    this.chartService.getVariablesValuesByRangeDatesAndChartId(this.chart.chart.id, date_start, date_end).subscribe((variablesValues) => {
-      this.chart.datas.variables = variablesValues;
-    })
 
     this.chartType = this.chartTypes.getNameByValue(this.chart.chart.chartType);  
     this.idGraph = this.idGraph + `_${Math.floor(Math.random() * 10000 + 1)}`;

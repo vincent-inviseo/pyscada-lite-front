@@ -1,3 +1,5 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
+
 import { Injectable } from '@angular/core';
 import { saveAs } from 'file-saver';
 
@@ -41,7 +43,9 @@ export class ExportDataAsCsvService {
     this.saveAsFile(csvContent, `${fileName}`, '.csv');
   }
 
+  /*
   private aggregate(datas: any, aggregateOption: number): any {
       return datas
   }
+  */
 }

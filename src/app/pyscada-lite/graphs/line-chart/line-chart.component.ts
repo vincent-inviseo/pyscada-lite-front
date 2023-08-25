@@ -1,4 +1,5 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
+/* eslint-disable @typescript-eslint/no-non-null-assertion */
 
 import { Component, AfterViewInit, Input, OnChanges, SimpleChanges } from '@angular/core';
 import { Chart } from 'chart.js/auto';
@@ -40,6 +41,7 @@ export class LineChartComponent implements AfterViewInit, OnChanges {
   public datasetsLabels: string[] = [];
 
   public datasetsData: any[] = [];
+  public datasetsUnits: any[] = [];
 
   public valuesSet: number[] = [];
 
@@ -67,7 +69,9 @@ export class LineChartComponent implements AfterViewInit, OnChanges {
         ctx.textBaseline = 'middle';
         ctx.textAlign = 'center';
 
-        ctx.font = "30px Baloo2";
+        const sizeText = (width + (left + width / 2)) / 40;
+
+        ctx.font = "" + sizeText + "px Baloo2";
         ctx.fillStyle = 'black';
         ctx.fillText('Pas de données disponibles pour ces dates', left + width / 2, top + height / 2);
       }
@@ -82,6 +86,9 @@ export class LineChartComponent implements AfterViewInit, OnChanges {
     }
     if (this.isInitialChartWithData) {
       this.setAllValuesDatasets(this.chart);
+      if (this.chart.datas.variables.length == 1) {
+        this.yAxisLabel = this.chart.chart.legende_axe_y;
+      }
       Chart.register(zoomPlugin);
       this.setLineChart();
       this.lineChart!.options!.scales!['y']!.min = this.yAxisMin;
@@ -91,6 +98,9 @@ export class LineChartComponent implements AfterViewInit, OnChanges {
       this.lineChart.update();
     }
     else {
+      if (this.chart.datas.variables.length == 1) {
+        this.yAxisLabel = this.chart.chart.legende_axe_y;
+      }
       Chart.register(zoomPlugin);
       this.setLineChart();
     }
@@ -126,18 +136,19 @@ export class LineChartComponent implements AfterViewInit, OnChanges {
     }
   }
 
-  // Takes all values without taking into account aggregation or calendar date range
+  // Takes all values without taking into account aggregation
   // Note: need to handle case of a variable with no value at a given time
   public setAllValuesDatasets(chart: any) {
     this.datasetsData = [];
+    this.datasetsUnits = [];
     this.datasetsLabels = [];
     this.xAxisLabels = [];
     let minValuesSet: number;
     let maxValuesSet: number;
-    this.yAxisLabel = chart.chart.legende_axe_y;
     const variables = chart.datas.variables;
     for (let i = 0; i < variables.length; i++) {
       this.valuesSet = [];
+      this.datasetsUnits.push(variables[i].unit);
       const variable = variables[i];
       const valuesList = variable.values;
       this.datasetsLabels.push(variable.name);
@@ -210,12 +221,9 @@ export class LineChartComponent implements AfterViewInit, OnChanges {
             title: {
               display: true,
               text: this.yAxisLabel,
-              font: {
-                family: "Baloo2"
-              },
             },
             min: this.yAxisMin,
-            max: this.yAxisMax
+            max: this.yAxisMax,
           }
         },
         plugins: {
@@ -232,7 +240,7 @@ export class LineChartComponent implements AfterViewInit, OnChanges {
             labels: {
               font: {
                 family: "Baloo2",
-                 size: 15
+                size: 15
               },
               usePointStyle: true,
               pointStyle: 'circle'
@@ -243,13 +251,11 @@ export class LineChartComponent implements AfterViewInit, OnChanges {
               label: () => (''),
               title: () => (''),
               afterBody: (items) => {
-                return ("" + items[0].raw + ' ' + this.yAxisLabel);
+                const datasetIndex = items[0].datasetIndex;
+                return (" " + items[0].raw + ' ' + this.datasetsUnits[datasetIndex] + ' ');
               },
             },
             displayColors: false,
-            titleFont: {
-              family: "Baloo2",
-            },
             titleAlign: 'center',
           }
         },
@@ -267,7 +273,7 @@ export class LineChartComponent implements AfterViewInit, OnChanges {
   }
 
   public askExportDatas(): void {
-    let values = [...this.chart.datas.variables.map( (v:any) => v.values)];
+    const values = [...this.chart.datas.variables.map( (v:any) => v.values)];
     this.exportAsCsvService.exportToCsv(values[0], 'exportedData.csv');
   }
 }

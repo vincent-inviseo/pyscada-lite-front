@@ -37,7 +37,7 @@ export class BuildingDetailComponent implements OnInit {
             for (const chart_id of charts_ids.charts_ids) {
               this.chartService.getChartById(chart_id).subscribe((chart_datas) => {
                 const currentDatetime = new Date();
-                let datetime24HoursBefore = new Date();
+                const datetime24HoursBefore = new Date();
                 datetime24HoursBefore.setDate(datetime24HoursBefore.getDate() - 1);
                 this.rangeDates.push(datetime24HoursBefore);
                 this.rangeDates.push(currentDatetime);

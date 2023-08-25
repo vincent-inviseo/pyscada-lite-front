@@ -1,3 +1,5 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
+
 import { Component, Input, AfterContentInit } from '@angular/core';
 import { DateCleanerGraphService } from 'src/app/services/date-cleaner-graph.service';
 
@@ -24,7 +26,6 @@ export class GraphsComponent implements AfterContentInit {
 
   @Input() public resetZoom = false;
 
-  /* ToDO @Input() in each graph */
   @Input() public generateCsv = false;
 
   public ngAfterContentInit() {

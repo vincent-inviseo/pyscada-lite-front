@@ -1,4 +1,6 @@
-import { Component, OnInit, AfterViewInit } from "@angular/core";
+/* eslint-disable @typescript-eslint/no-explicit-any */
+
+import { Component, OnInit } from "@angular/core";
 import { DynamicDialogRef, DynamicDialogConfig } from 'primeng/dynamicdialog';
 import { ChartType } from "src/app/models/chart-type";
 
@@ -10,7 +12,7 @@ import { ChartType } from "src/app/models/chart-type";
   export class ZoomModalComponent implements OnInit  {
     
     public idGraph!: string;
-    public chartType: string = 'number';
+    public chartType = 'number';
     public chartTypes = new ChartType();
     public chart!: any;
     public chartHeight = "80vh";

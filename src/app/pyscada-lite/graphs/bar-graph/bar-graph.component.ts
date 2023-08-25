@@ -1,6 +1,6 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 
-import { Component, AfterViewInit, Input, OnChanges, SimpleChange, SimpleChanges } from '@angular/core';
+import { Component, AfterViewInit, Input, OnChanges, SimpleChanges } from '@angular/core';
 import { Chart } from 'chart.js/auto';
 import zoomPlugin from 'chartjs-plugin-zoom';
 import { ChartService } from 'src/app/requests/chart.service';
@@ -34,21 +34,12 @@ export class BarGraphComponent implements AfterViewInit, OnChanges {
 
   @Input() public generateCsv = false;
 
-  /*
-
-  public xValues: string[] = ["Italy", "France", "Spain", "USA", "Argentina", "test"];
-  public yValues2023: number[] = [55, 49, 44, 24, 15, 30];
-  public yValues2022: number[] = [60, 55, 48, 30, 25, 15];
-
-  public yAxisUnit = "kW";
-
-  */
-
   public xAxisLabels: string[] = [];
   public yAxisLabel = "";
   public datasetsLabels: any[] = [];
 
   public datasetsData: any[] = [];
+  public datasetsUnits: any[] = [];
 
   public valuesSet: number[] = [];
 
@@ -76,7 +67,9 @@ export class BarGraphComponent implements AfterViewInit, OnChanges {
         ctx.textBaseline = 'middle';
         ctx.textAlign = 'center';
 
-        ctx.font = "30px Baloo2";
+        const sizeText = (width + (left + width / 2)) / 40;
+
+        ctx.font = "" + sizeText + "px Baloo2";
         ctx.fillStyle = 'black';
         ctx.fillText('Pas de données disponibles pour ces dates', left + width / 2, top + height / 2);
       }
@@ -84,9 +77,6 @@ export class BarGraphComponent implements AfterViewInit, OnChanges {
   };
 
   public ngAfterViewInit(): void {
-    // this.opacityColors(this.yValues2023, this.yValues2022);
-    // this.opacityColors(this.yValuesSet1, this.yValuesSet2);
-
     for (let i = 0; i < this.chart.datas.variables.length; i++) {
       if (this.chart.datas.variables[i].values.length > 0) {
         this.isInitialChartWithData = true;
@@ -94,6 +84,9 @@ export class BarGraphComponent implements AfterViewInit, OnChanges {
     }
     if (this.isInitialChartWithData) {
       this.setAllValuesDatasets(this.chart);
+      if (this.chart.datas.variables.length == 1) {
+        this.yAxisLabel = this.chart.chart.legende_axe_y;
+      }
       Chart.register(zoomPlugin);
       this.setBarGraph();
       this.barGraph.data.labels = this.xAxisLabels;
@@ -101,6 +94,9 @@ export class BarGraphComponent implements AfterViewInit, OnChanges {
       this.barGraph.update();
     }
     else {
+      if (this.chart.datas.variables.length == 1) {
+        this.yAxisLabel = this.chart.chart.legende_axe_y;
+      }
       Chart.register(zoomPlugin);
       this.setBarGraph();
     }
@@ -144,7 +140,7 @@ export class BarGraphComponent implements AfterViewInit, OnChanges {
   }
 
   /*
-  // For barGraph with 2 datasets stacked
+  // For barGraph with 2 stacked datasets
   public opacityColors(yValues: number[], yValuesAlter: number[]) : void {
     const length = yValues.length;
     for (let i = 0; i < length; i++) {
@@ -160,16 +156,16 @@ export class BarGraphComponent implements AfterViewInit, OnChanges {
   }
   */
 
-  // Takes all values without taking into account aggregation or calendar date range
+  // Takes all values without taking into account aggregation
   // Note: need to handle case of a variable with no value at a given time
   public setAllValuesDatasets(chart: any) {
     this.datasetsData = [];
     this.datasetsLabels = [];
     this.xAxisLabels = [];
-    this.yAxisLabel = chart.chart.legende_axe_y;
     const variables = chart.datas.variables;
     for (let i = 0; i < variables.length; i++) {
       this.valuesSet = [];
+      this.datasetsUnits.push(variables[i].unit);
       const variable = variables[i];
       const valuesList = variable.values;
       this.datasetsLabels.push(variable.name);
@@ -199,7 +195,7 @@ export class BarGraphComponent implements AfterViewInit, OnChanges {
           data: this.datasetsData[i],
           borderRadius: 15,
           borderWidth: 1,
-          //barThickness: 25,
+          // barThickness: 5,
           categoryPercentage: 1.0,
           barPercentage: 1.0
         };
@@ -211,9 +207,9 @@ export class BarGraphComponent implements AfterViewInit, OnChanges {
           data: this.datasetsData[i],
           borderRadius: 15,
           borderWidth: 1,
-          //barThickness: 25,
-          categoryPercentage: 0.5,
-          barPercentage: 0.5
+          // barThickness: 5,
+          categoryPercentage: 1.0,
+          barPercentage: 1.0
         };
       }
       this.barGraph.data.datasets.push(dataset);
@@ -221,34 +217,12 @@ export class BarGraphComponent implements AfterViewInit, OnChanges {
   }
 
   public setBarGraph() : void {
-    Chart.defaults.font.family = "Baloo2";
+    Chart.defaults.font.family = "Baloo 2";
     this.barGraph =  new Chart(this.id, {
       type: 'bar',
       data: {
-        labels: [], // this.xValues,
-        datasets: [
-          /*
-        {
-          backgroundColor: this.barBlue,
-          label: "2023",
-          data: this.yValues2023, // this.yValuesSet1, 
-          borderRadius: 15,
-          borderWidth: 1,
-          //barThickness: 25,
-          categoryPercentage: 0.5,
-          barPercentage: 0.5
-        },
-        {
-          backgroundColor: this.barLightBlue,
-          label: "2022",
-          data: this.yValues2022, // this.yValuesSet2, 
-          borderRadius: 15,
-          borderWidth: 1,
-          //barThickness: 25,
-          categoryPercentage: 0.5,
-          barPercentage: 0.5
-        }
-      */]
+        labels: [],
+        datasets: []
       },
       options: {
         maintainAspectRatio: false,
@@ -275,20 +249,20 @@ export class BarGraphComponent implements AfterViewInit, OnChanges {
             display: true,
             labels: {
               font: {
+                family: "Baloo2",
                 size: 15
               }
             }
           },
           tooltip: {
             enabled: true,
-            // Setup to possibly add unit in tooltip at some point
-            /*
             callbacks: {
-              label: (tooltipItems: any) => { 
-                return tooltipItems.dataset.label + ": " + tooltipItems.raw//tooltipItems.yLabel; //tooltipItems.dataset.label;
+              label: (items: any) => { 
+                console.log(items);
+                const datasetIndex = items.datasetIndex
+                return items.dataset.label + ": " + items.raw + ' ' + this.datasetsUnits[datasetIndex]
               }
             }
-            */
             /*
             callbacks: {
               footer: (items: any) => {
@@ -318,7 +292,7 @@ export class BarGraphComponent implements AfterViewInit, OnChanges {
   }
 
   public askExportDatas(): void {
-    let values = [...this.chart.datas.variables.map( (v:any) => v.values)];
+    const values = [...this.chart.datas.variables.map( (v:any) => v.values)];
     this.exportAsCsvService.exportToCsv(values[0], 'exportedData.csv');
   }
 }
