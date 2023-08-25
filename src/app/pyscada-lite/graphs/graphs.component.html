@@ -1,19 +1,19 @@
 <div *ngIf="graphType === 'barGraph'">
-    <app-bar-graph [chart]="chart" [chartWidth]="chartWidth" [chartHeight]="chartHeight" [id]="id"></app-bar-graph>
+    <app-bar-graph [rangeDates]="rangeDates" [chart]="chart" [chartWidth]="chartWidth" [chartHeight]="chartHeight" [id]="id" [resetZoom]="resetZoom" [generateCsv]="generateCsv"></app-bar-graph>
 </div>
 
 <div *ngIf="graphType === 'doughnut'">
-    <app-doughnut [chart]="chart" [chartWidth]="chartWidth" [chartHeight]="chartHeight" [id]="id"></app-doughnut>
+    <app-doughnut [rangeDates]="rangeDates" [chart]="chart" [chartWidth]="chartWidth" [chartHeight]="chartHeight" [id]="id" [generateCsv]="generateCsv"></app-doughnut>
 </div>
 
 <div *ngIf="graphType === 'gauge'">
-    <app-gauge [chart]="chart" [chartWidth]="chartWidth" [chartHeight]="chartHeight" [id]="id"></app-gauge>
+    <app-gauge [rangeDates]="rangeDates" [chart]="chart" [chartWidth]="chartWidth" [chartHeight]="chartHeight" [id]="id" [generateCsv]="generateCsv"></app-gauge>
 </div>
 
 <div *ngIf="graphType === 'lineChart'">
-    <app-line-chart [chart]="chart" [chartWidth]="chartWidth" [chartHeight]="chartHeight" [id]="id" [resetZoom]="resetZoom"></app-line-chart>
+    <app-line-chart [rangeDates]="rangeDates" [chart]="chart" [chartWidth]="chartWidth" [chartHeight]="chartHeight" [id]="id" [resetZoom]="resetZoom" [generateCsv]="generateCsv"></app-line-chart>
 </div>
 
 <div *ngIf="graphType === 'loadProfile'">
-    <app-load-profile [chart]="chart" [chartWidth]="chartWidth" [chartHeight]="chartHeight" [id]="id"></app-load-profile>
+    <app-load-profile [rangeDates]="rangeDates" [chart]="chart" [chartWidth]="chartWidth" [chartHeight]="chartHeight" [id]="id" [generateCsv]="generateCsv"></app-load-profile>
 </div>

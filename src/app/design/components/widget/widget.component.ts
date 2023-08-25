@@ -1,10 +1,12 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
+/* eslint-disable @typescript-eslint/no-unused-vars */
 
 import { Component, Input, AfterViewInit, OnInit } from '@angular/core';
 import { ChartType } from 'src/app/models/chart-type';
-import { ExportDataAsCsvService } from 'src/app/services/export-as-csv';
 import { ZoomModalComponent } from 'src/app/pyscada-lite/graphs/zoom-modal/zoom-modal.component';
 import { DialogService } from 'primeng/dynamicdialog';
+import { ChartService } from 'src/app/requests/chart.service';
+import { DateCleanerGraphService } from 'src/app/services/date-cleaner-graph.service';
 
 @Component({
   selector: 'app-widget',
@@ -37,18 +39,18 @@ export class WidgetComponent implements AfterViewInit, OnInit {
 
   public chartType = 'number';
 
-  public rangeDates!: any;
+  public rangeDates: any[] = [];
 
   public idDropdownContent!: string;
 
   public resetZoom = false;
 
-  /* ToDO form for the generation of the csv file */
   public generateCsv = false;
 
   constructor(
-    private readonly exportAsCsvService: ExportDataAsCsvService,
     private readonly primeNgDialogService: DialogService,
+    private readonly chartService: ChartService,
+    private readonly dateCleanerGraphService: DateCleanerGraphService
   ) {}
 
   public ngAfterViewInit(): void {
@@ -56,6 +58,12 @@ export class WidgetComponent implements AfterViewInit, OnInit {
   }
 
   public ngOnInit(): void {
+    const currentDatetime = new Date();
+    const datetime24HoursBefore = new Date();
+    datetime24HoursBefore.setDate(datetime24HoursBefore.getDate() - 1);
+    this.rangeDates.push(datetime24HoursBefore);
+    this.rangeDates.push(currentDatetime);
+
     this.chartType = this.chartTypes.getNameByValue(this.chart.chart.chartType);  
     this.idGraph = this.idGraph + `_${Math.floor(Math.random() * 10000 + 1)}`;
     this.idDropdownContent = `dropdownContent_${Math.floor(Math.random() * 10000 + 1)}`;
@@ -89,8 +97,7 @@ export class WidgetComponent implements AfterViewInit, OnInit {
     this.resetZoom = !this.resetZoom;
   }
 
-  public askExportDatas(chart:any): void {
-    let values = [...this.chart.datas.variables.map( (v:any) => v.values.value)]
-    this.exportAsCsvService.exportToCsv(values[0], 'exporteddata.csv') 
+  public askExportDatas(): void {
+    this.generateCsv = !this.generateCsv; 
   }
 }

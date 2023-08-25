@@ -1,9 +1,12 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
+/* eslint-disable @typescript-eslint/no-non-null-assertion */
 
 import { Component, AfterViewInit, Input, OnChanges, SimpleChanges } from '@angular/core';
 import { Chart } from 'chart.js/auto';
 import zoomPlugin from 'chartjs-plugin-zoom';
 import { DateCleanerGraphService } from 'src/app/services/date-cleaner-graph.service';
+import { ChartService } from 'src/app/requests/chart.service';
+import { ExportDataAsCsvService } from 'src/app/services/export-as-csv';
 
 @Component({
   selector: 'app-line-chart',
@@ -13,7 +16,11 @@ import { DateCleanerGraphService } from 'src/app/services/date-cleaner-graph.ser
 
 export class LineChartComponent implements AfterViewInit, OnChanges {
 
-  constructor(private readonly dateCleanerGraphService: DateCleanerGraphService) {}
+  constructor(
+    private readonly dateCleanerGraphService: DateCleanerGraphService,
+    private readonly chartService: ChartService,
+    private readonly exportAsCsvService: ExportDataAsCsvService
+    ) {}
 
   @Input() public id!: string;
 
@@ -23,135 +30,188 @@ export class LineChartComponent implements AfterViewInit, OnChanges {
 
   @Input() public chartHeight = "";
 
+  @Input() public rangeDates!: any[];
+
   @Input() public resetZoom = false;
 
-  public labelsValues = ["LUN", "MAR", "MER", "JEU", "VEN", "SAM", "DIM"];
-  public valuesCurrentWeek = [55, 49, 44, 24, 15, 30, 60];
-  public valuesLastWeek = [40, 45, 48, 30, 10, 25, 50];
+  @Input() public generateCsv = false;
 
-  public colorCurrentWeek = "#4C0BC6";
-  public colorLastWeek = "#27BEF2";
-
-  public yAxisUnit = "kW"
-
-  /*
-
-  public yAxisMin = Math.min(Math.min(...this.valuesCurrentWeek), Math.min(...this.valuesLastWeek));
-  public yAxisMax = Math.max(Math.max(...this.valuesCurrentWeek), Math.max(...this.valuesLastWeek));
-
-  */
-
-  
-  // Not necessary, used as title of widget
-  // public title = "";
-
-  public xAxislabels: string[] = [];
+  public xAxisLabels: string[] = [];
   public yAxisLabel = "";
-  public datasetslabels: string[] = [];
+  public datasetsLabels: string[] = [];
 
   public datasetsData: any[] = [];
+  public datasetsUnits: any[] = [];
 
-  public valuesSet: number[] = []
+  public valuesSet: number[] = [];
 
-  /*
-
-  public valuesSet1: number[] = [];
-  public valuesSet2: number[] = [];
-
-  */
+  public yAxisMin!: number;
+  public yAxisMax!: number;
 
   public colorSet1 = "#4C0BC6";
   public colorSet2 = "#27BEF2";
 
-  
-
-  // After valuesSet1 and valuesSet2 are defined
-  // public yAxisMin = Math.min(Math.min(...this.valuesSet1), Math.min(...this.valuesSet2));
-  // public yAxisMax = Math.max(Math.max(...this.valuesSet1), Math.max(...this.ValuesSet2));
-
-  
+  public isInitialChartWithData = false;
+  public isAlreadyUpdated = false;
 
   public lineChart!: Chart<"line", number[], string>;
 
-  public ngAfterViewInit(): void { 
-    Chart.register(zoomPlugin);
-    this.setLineChartDefaultValues();
-  }
+  noData = {
+    id: 'noData',
+    afterDatasetsDraw: (chart: any) => {
+      const { ctx, data, chartArea: {top, left, width, height} } = chart;
+      ctx.save();
+      if (data.datasets.length === 0) {
+        ctx.fillStyle = 'rgba(102, 102, 102, 0.5)';
+        ctx.fillRect(left, top, width, height)
 
-  public ngOnChanges(changes: SimpleChanges) {
-    if (changes['resetZoom'].previousValue != undefined) {
-      this.resetZoomChart();
+        ctx.textAlign = 'center';
+        ctx.textBaseline = 'middle';
+        ctx.textAlign = 'center';
+
+        const sizeText = (width + (left + width / 2)) / 40;
+
+        ctx.font = "" + sizeText + "px Baloo2";
+        ctx.fillStyle = 'black';
+        ctx.fillText('Pas de données disponibles pour ces dates', left + width / 2, top + height / 2);
+      }
+    }
+  };
+
+  public ngAfterViewInit(): void {
+    for (let i = 0; i < this.chart.datas.variables.length; i++) {
+      if (this.chart.datas.variables[i].values.length > 0) {
+        this.isInitialChartWithData = true;
+      }
+    }
+    if (this.isInitialChartWithData) {
+      this.setAllValuesDatasets(this.chart);
+      if (this.chart.datas.variables.length == 1) {
+        this.yAxisLabel = this.chart.chart.legende_axe_y;
+      }
+      Chart.register(zoomPlugin);
+      this.setLineChart();
+      this.lineChart!.options!.scales!['y']!.min = this.yAxisMin;
+      this.lineChart!.options!.scales!['y']!.max = this.yAxisMax;
+      this.lineChart.data.labels = this.xAxisLabels;
+      this.setDatasetsLineChart();
+      this.lineChart.update();
+    }
+    else {
+      if (this.chart.datas.variables.length == 1) {
+        this.yAxisLabel = this.chart.chart.legende_axe_y;
+      }
+      Chart.register(zoomPlugin);
+      this.setLineChart();
     }
   }
 
-  // Takes all values without taking into account aggregation or calendar date range
+  public ngOnChanges(changes: SimpleChanges): void {
+    if (changes['resetZoom'] != undefined) {
+      if (changes['resetZoom'].previousValue != undefined) {
+        this.resetZoomChart();
+      }
+    }
+    if (changes['generateCsv'] != undefined) {
+      if (changes['generateCsv'].previousValue != undefined) {
+        this.askExportDatas();
+      }
+    }
+    if (changes['rangeDates'] != undefined) {
+      if (changes['rangeDates'].previousValue != undefined) {
+        const date_start = this.dateCleanerGraphService.cleanDateForFilterBackend(this.rangeDates[0]);
+        let date_end!: string;
+        if (this.rangeDates[1] == null) {
+          const currentDatetime = new Date();
+          date_end = this.dateCleanerGraphService.cleanDateForFilterBackend(currentDatetime).toString();
+        }
+        else {
+          date_end = this.dateCleanerGraphService.cleanDateForFilterBackend(this.rangeDates[1]).toString();
+        }
+        this.chartService.getVariablesValuesByRangeDatesAndChartId(this.chart.chart.id, date_start, date_end).subscribe((variablesValues) => {
+          this.chart.datas.variables = variablesValues;
+          this.updateLineChart(this.chart);
+        })
+      }
+    }
+  }
+
+  // Takes all values without taking into account aggregation
   // Note: need to handle case of a variable with no value at a given time
   public setAllValuesDatasets(chart: any) {
+    this.datasetsData = [];
+    this.datasetsUnits = [];
+    this.datasetsLabels = [];
+    this.xAxisLabels = [];
+    let minValuesSet: number;
+    let maxValuesSet: number;
     const variables = chart.datas.variables;
     for (let i = 0; i < variables.length; i++) {
       this.valuesSet = [];
+      this.datasetsUnits.push(variables[i].unit);
       const variable = variables[i];
-      const valuesList = variable.values.value;
-      this.datasetslabels.push(variable.name);
+      const valuesList = variable.values;
+      this.datasetsLabels.push(variable.name);
       for (let j = 0; j < valuesList.length; j++) {
-        const cleanRecordedAt = this.dateCleanerGraphService.cleanDate(valuesList[j].recordedAt);
+        const cleanRecordedAt = this.dateCleanerGraphService.cleanDateGraph(valuesList[j].recordedAt);
         if (cleanRecordedAt && i == 0) {
-          this.xAxislabels.push(cleanRecordedAt.toString());
+          this.xAxisLabels.push(cleanRecordedAt.toString());
         }
         else if (i == 0) {
-          this.xAxislabels.push(valuesList[j].recordedAt);
+          this.xAxisLabels.push(valuesList[j].recordedAt);
         }
         this.valuesSet.push(valuesList[j].value);
+      }
+      if (i == 0) {
+        this.yAxisMin = Math.min(...this.valuesSet);
+        this.yAxisMax = Math.max(...this.valuesSet);
+      }
+      else {
+        minValuesSet = Math.min(...this.valuesSet);
+        maxValuesSet = Math.max(...this.valuesSet);
+        if (this.yAxisMin > minValuesSet) {
+          this.yAxisMin = minValuesSet;
+        }
+        if (this.yAxisMax < maxValuesSet) {
+          this.yAxisMax = maxValuesSet;
+        }
       }
       this.datasetsData.push(this.valuesSet);
     }
   }
 
+  public updateLineChart(chart: any): void {
+    this.setAllValuesDatasets(chart);
+    this.lineChart!.options!.scales!['y']!.min = this.yAxisMin - 1;
+    this.lineChart!.options!.scales!['y']!.max = this.yAxisMax + 1;
+    this.lineChart.data.labels = this.xAxisLabels;
+    this.setDatasetsLineChart();
+    this.lineChart.update();
+  }
+
   public setDatasetsLineChart(): void {
+    this.lineChart.data.datasets = [];
     for (let i = 0; i < this.datasetsData.length; i++) {
       const dataset =
       {
+        label: this.datasetsLabels[i],
         data: this.datasetsData[i],
+        pointRadius: 0,
+        tension: 0.35
         // backgroundColor: not defined as of now
+        // borderColor: same value as backgroundColor
       };
       this.lineChart.data.datasets.push(dataset);
     }
   }
 
-  // TODO
   public setLineChart(): void {
-    Chart.defaults.font.family = "var(--main-title-font-family)"
-    /*
-    this.lineChart = new Chart(this.id) {
-
-    }
-    */
-  }
-
-  public setLineChartDefaultValues() {
-    Chart.defaults.font.family = "Baloo 2";
+    Chart.defaults.font.family = "Baloo 2"
     this.lineChart = new Chart(this.id, {
       type: 'line',
       data: {
-        labels: this.labelsValues,
-        datasets: [
-          {
-            label: "Wine types",
-            data: this.valuesCurrentWeek,
-            backgroundColor: this.colorCurrentWeek,
-            borderColor: this.colorCurrentWeek,
-            pointRadius: 0,
-            tension: 0.35
-          },
-          {
-            label: "Wine types last week",
-            data: this.valuesLastWeek,
-            backgroundColor: this.colorLastWeek,
-            borderColor: this.colorLastWeek,
-            pointRadius: 0,
-            tension: 0.35
-          }
-        ]
+        labels: [],
+        datasets: []
       },
       options: {
         maintainAspectRatio: false,
@@ -160,11 +220,10 @@ export class LineChartComponent implements AfterViewInit, OnChanges {
             beginAtZero: true,
             title: {
               display: true,
-              text: this.yAxisUnit,
-              font: {
-                  family: "Baloo2"
-              },
-            }
+              text: this.yAxisLabel,
+            },
+            min: this.yAxisMin,
+            max: this.yAxisMax,
           }
         },
         plugins: {
@@ -181,21 +240,10 @@ export class LineChartComponent implements AfterViewInit, OnChanges {
             labels: {
               font: {
                 family: "Baloo2",
-                 size: 15
+                size: 15
               },
               usePointStyle: true,
               pointStyle: 'circle'
-            },
-          },
-          title: {
-            display: true,
-            text: "World Wine Production 2018",
-            padding: {
-              top: 10
-            },
-            font: {
-              family: "bolder Baloo2",
-              size: 20
             },
           },
           tooltip: {
@@ -203,13 +251,11 @@ export class LineChartComponent implements AfterViewInit, OnChanges {
               label: () => (''),
               title: () => (''),
               afterBody: (items) => {
-                return ("" + items[0].raw + ' ' + this.yAxisUnit);
+                const datasetIndex = items[0].datasetIndex;
+                return (" " + items[0].raw + ' ' + this.datasetsUnits[datasetIndex] + ' ');
               },
             },
             displayColors: false,
-            titleFont: {
-              family: "Baloo2",
-            },
             titleAlign: 'center',
           }
         },
@@ -217,11 +263,17 @@ export class LineChartComponent implements AfterViewInit, OnChanges {
           mode: 'nearest',
           intersect: false
         },
-      }
-    });
+      },
+      plugins: [this.noData]
+    })
   }
 
   public resetZoomChart(): void {
     this.lineChart.resetZoom();
+  }
+
+  public askExportDatas(): void {
+    const values = [...this.chart.datas.variables.map( (v:any) => v.values)];
+    this.exportAsCsvService.exportToCsv(values[0], 'exportedData.csv');
   }
 }

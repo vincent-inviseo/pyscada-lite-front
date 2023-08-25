@@ -11,8 +11,19 @@ export class DateCleanerGraphService {
 
     constructor(private readonly datePipe: DatePipe) {}
 
-    public cleanDate(date: any): string | boolean {
+    public cleanDateGraph(date: any): string | boolean {
         const newDate = this.datePipe.transform(date, "dd/MM/yy HH:mm:ss");
+        if (newDate == null) {
+            return(false);
+        }
+        else {
+            return(newDate);
+        }
+    }
+
+    public cleanDateForFilterBackend(date: any): string | boolean {
+        // Timezone France: RST
+        const newDate = this.datePipe.transform(date, "YYYY-MM-ddTHH:mm:ss", 'RST');
         if (newDate == null) {
             return(false);
         }

@@ -4,8 +4,7 @@ import { ActivatedRoute } from '@angular/router';
 import { UntilDestroy } from '@ngneat/until-destroy';
 import { ChartService } from 'src/app/requests/chart.service';
 import { ChartType } from 'src/app/models/chart-type';
-
-// import { AngularCsv } from 'angular-csv-ext/dist/Angular-csv';
+import { DateCleanerGraphService } from 'src/app/services/date-cleaner-graph.service';
 
 @UntilDestroy()
 @Component({
@@ -19,11 +18,12 @@ export class BuildingDetailComponent implements OnInit {
 
   public charts: any[] = [];
 
-
+  public rangeDates: any[] = [];
 
   constructor(
     private readonly chartService: ChartService,
-    private readonly activatedRoute: ActivatedRoute
+    private readonly activatedRoute: ActivatedRoute,
+    private readonly dateCleanerGraphService: DateCleanerGraphService
   )
   {}
 
@@ -36,7 +36,18 @@ export class BuildingDetailComponent implements OnInit {
           if (charts_ids.charts_ids.length > 0) {
             for (const chart_id of charts_ids.charts_ids) {
               this.chartService.getChartById(chart_id).subscribe((chart_datas) => {
-                this.charts.push(chart_datas);
+                const currentDatetime = new Date();
+                const datetime24HoursBefore = new Date();
+                datetime24HoursBefore.setDate(datetime24HoursBefore.getDate() - 1);
+                this.rangeDates.push(datetime24HoursBefore);
+                this.rangeDates.push(currentDatetime);
+
+                const date_start = this.dateCleanerGraphService.cleanDateForFilterBackend(this.rangeDates[0]).toString();
+                const date_end = this.dateCleanerGraphService.cleanDateForFilterBackend(this.rangeDates[1]).toString();
+                this.chartService.getVariablesValuesByRangeDatesAndChartId(chart_id, date_start, date_end).subscribe((variablesValues) => {
+                  chart_datas.datas.variables = variablesValues;
+                  this.charts.push(chart_datas);
+                })
               })
             }
           }
