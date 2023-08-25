@@ -42,10 +42,4 @@ export class ExportDataAsCsvService {
       }).join('\n');
     this.saveAsFile(csvContent, `${fileName}`, '.csv');
   }
-
-  /*
-  private aggregate(datas: any, aggregateOption: number): any {
-      return datas
-  }
-  */
 }
