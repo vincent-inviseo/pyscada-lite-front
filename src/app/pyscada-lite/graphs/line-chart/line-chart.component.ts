@@ -128,7 +128,7 @@ export class LineChartComponent implements AfterViewInit, OnChanges {
         else {
           date_end = this.dateCleanerGraphService.cleanDateForFilterBackend(this.rangeDates[1]).toString();
         }
-        this.chartService.getVariablesValuesByRangeDatesAndChartId(this.chart.chart.id, date_start, date_end).subscribe((variablesValues) => {
+        this.chartService.getVariablesValuesByRangeDatesAndChartId(this.chart.chart.id, date_start, date_end, 0).subscribe((variablesValues) => {
           this.chart.datas.variables = variablesValues;
           this.updateLineChart(this.chart);
         })
