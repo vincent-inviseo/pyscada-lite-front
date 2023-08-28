@@ -1,1 +1,17 @@
-<p>export-data works!</p>
+<div class="createform">
+    <div class="createform__content" *ngIf="exportForm">
+        <form [formGroup]="exportForm">
+            
+
+            <app-button 
+            [disabled]="exportForm.invalid"
+            name="exportData"
+            id="exportData"
+            size="large"
+            full
+            bgColor="blue"
+            (click)="exportData()"
+            >Valider</app-button>
+        </form>
+    </div>
+</div>

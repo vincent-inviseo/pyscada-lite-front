@@ -5,6 +5,9 @@ import { GraphsModule } from 'src/app/pyscada-lite/graphs/graphs.module';
 import { CalendarModule } from 'primeng/calendar';
 import { FormsModule } from '@angular/forms';
 import { DialogService } from 'primeng/dynamicdialog';
+import { PopoverModule } from '../popover/popover.module';
+import { PopoverMenuModule } from '../popover-menu/popover-menu.module';
+import { PopoverMenuItemModule } from '../popover-menu-item/popover-menu-item.module';
 
 @NgModule({
   declarations: [WidgetComponent],
@@ -12,7 +15,10 @@ import { DialogService } from 'primeng/dynamicdialog';
     CommonModule,
     GraphsModule, 
     CalendarModule,
-    FormsModule
+    FormsModule,
+    PopoverModule,
+    PopoverMenuModule,
+    PopoverMenuItemModule
 ],
 providers: [DialogService],
   exports: [WidgetComponent],

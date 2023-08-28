@@ -9,6 +9,7 @@ import { NgChartsConfiguration, NgChartsModule } from 'ng2-charts';
 import { LoadProfileComponent } from './load-profile/load-profile.component';
 import { GraphsComponent } from './graphs.component';
 import { ZoomModalComponent } from './zoom-modal/zoom-modal.component';
+import { ExportDataComponentModule } from 'src/app/design/modals/export-data/export-data.module';
 
 @NgModule({
   declarations: [
@@ -23,7 +24,8 @@ import { ZoomModalComponent } from './zoom-modal/zoom-modal.component';
   imports: [
     CommonModule,
     SharedModule,
-    NgChartsModule
+    NgChartsModule,
+    ExportDataComponentModule
   ],
   exports: [
     BarGraphComponent,

@@ -21,6 +21,8 @@ export class LoadProfileComponent implements AfterViewInit {
 
   @Input() public generateCsv = false;
 
+  @Input() public aggregateType!: number;
+
   public idLegend!: string;
 
   constructor() {

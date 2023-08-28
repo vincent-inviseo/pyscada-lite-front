@@ -12,7 +12,6 @@ import { TokenInterceptor } from './authentication/interceptors/token.intercepto
 import { UnauthorizedInterceptorService } from './authentication/interceptors/unauthorized.interceptor';
 import { SharedModule } from './shared/shared.module';
 import { ServiceWorkerModule } from '@angular/service-worker';
-import { ExportDataComponent } from './design/modals/export-data/export-data.component';
 
 @NgModule({
   declarations: [

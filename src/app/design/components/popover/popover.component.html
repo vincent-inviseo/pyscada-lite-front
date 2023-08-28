@@ -1,0 +1,28 @@
+<div class="popover-container popover-container--{{ size }}">
+
+  <ng-template #content>
+    <ng-content></ng-content>
+  </ng-template>
+
+  <div *ngIf="hover">
+    <div (mouseenter)="toggle()"  (mouseleave)="toggle()">
+      <ng-container *ngTemplateOutlet="content"></ng-container>
+    </div>
+  </div>
+
+  <div *ngIf="!hover">
+    <div (click)="open()">
+      <ng-container *ngTemplateOutlet="content"></ng-container>
+    </div>
+  </div>
+
+  <div appClickOutside
+    class="popover popover--default popover--{{ size }} popover--{{ pos }} {{ popoverClass }} has-animation has-caret"
+    [ngClass]="{'is-visible':showPopover}"
+    [clickOutsideEnable]="initClickOut"
+    (clickOutside)="onClickedOutside()">
+    <div>
+      <ng-container *ngTemplateOutlet="popoverTpl"></ng-container>
+    </div>
+  </div>
+</div>

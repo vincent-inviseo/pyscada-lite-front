@@ -32,6 +32,8 @@ export class DoughnutComponent implements AfterViewInit, OnChanges {
 
   @Input() public generateCsv = false;
 
+  @Input() public aggregateType!: number;
+
   public labelsValues = ["Italy", "France", "Spain", "USA", "Argentina", "test"];
   public values = [55, 49, 44, 24, 15, 30];
   public colors = ["#4C0BC6", "#02C794", "#FAC528", "#27BEF2", "#EA4C87", "#000000"];

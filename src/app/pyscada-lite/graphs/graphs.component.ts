@@ -28,6 +28,8 @@ export class GraphsComponent implements AfterContentInit {
 
   @Input() public generateCsv = false;
 
+  @Input() public aggregateType!: number;
+
   public ngAfterContentInit() {
     this.id = this.id + `_${Math.floor(Math.random() * 10000 + 1)}`;
   }

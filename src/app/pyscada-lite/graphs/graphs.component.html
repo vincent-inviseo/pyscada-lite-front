@@ -1,19 +1,19 @@
 <div *ngIf="graphType === 'barGraph'">
-    <app-bar-graph [rangeDates]="rangeDates" [chart]="chart" [chartWidth]="chartWidth" [chartHeight]="chartHeight" [id]="id" [resetZoom]="resetZoom" [generateCsv]="generateCsv"></app-bar-graph>
+    <app-bar-graph [aggregateType]="aggregateType" [rangeDates]="rangeDates" [chart]="chart" [chartWidth]="chartWidth" [chartHeight]="chartHeight" [id]="id" [resetZoom]="resetZoom" [generateCsv]="generateCsv"></app-bar-graph>
 </div>
 
 <div *ngIf="graphType === 'doughnut'">
-    <app-doughnut [rangeDates]="rangeDates" [chart]="chart" [chartWidth]="chartWidth" [chartHeight]="chartHeight" [id]="id" [generateCsv]="generateCsv"></app-doughnut>
+    <app-doughnut [aggregateType]="aggregateType" [rangeDates]="rangeDates" [chart]="chart" [chartWidth]="chartWidth" [chartHeight]="chartHeight" [id]="id" [generateCsv]="generateCsv"></app-doughnut>
 </div>
 
 <div *ngIf="graphType === 'gauge'">
-    <app-gauge [rangeDates]="rangeDates" [chart]="chart" [chartWidth]="chartWidth" [chartHeight]="chartHeight" [id]="id" [generateCsv]="generateCsv"></app-gauge>
+    <app-gauge [aggregateType]="aggregateType" [rangeDates]="rangeDates" [chart]="chart" [chartWidth]="chartWidth" [chartHeight]="chartHeight" [id]="id" [generateCsv]="generateCsv"></app-gauge>
 </div>
 
 <div *ngIf="graphType === 'lineChart'">
-    <app-line-chart [rangeDates]="rangeDates" [chart]="chart" [chartWidth]="chartWidth" [chartHeight]="chartHeight" [id]="id" [resetZoom]="resetZoom" [generateCsv]="generateCsv"></app-line-chart>
+    <app-line-chart [aggregateType]="aggregateType" [rangeDates]="rangeDates" [chart]="chart" [chartWidth]="chartWidth" [chartHeight]="chartHeight" [id]="id" [resetZoom]="resetZoom" [generateCsv]="generateCsv"></app-line-chart>
 </div>
 
 <div *ngIf="graphType === 'loadProfile'">
-    <app-load-profile [rangeDates]="rangeDates" [chart]="chart" [chartWidth]="chartWidth" [chartHeight]="chartHeight" [id]="id" [generateCsv]="generateCsv"></app-load-profile>
+    <app-load-profile [aggregateType]="aggregateType" [rangeDates]="rangeDates" [chart]="chart" [chartWidth]="chartWidth" [chartHeight]="chartHeight" [id]="id" [generateCsv]="generateCsv"></app-load-profile>
 </div>
