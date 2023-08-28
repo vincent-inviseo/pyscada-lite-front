@@ -21,9 +21,9 @@
                             <app-popover-menu-item (click)="menu.close()">
                                 <div class="element" (click)="prevent($event)">
                                     <div class="aggregateLabel">
-                                        <label class="aggregateLabel" for="aggregateType"><span class="text">Type d'agrégation :</span></label>
+                                        <label class="aggregateLabel" for="{{idAggregateLabel}}"><span class="text">Type d'agrégation :</span></label>
                                         <div class="aggregateSelect">
-                                            <select class="aggregateType" id="aggregateType" [(ngModel)]="aggregateType">
+                                            <select class="aggregateType" id="{{idAggregateLabel}}" [(ngModel)]="aggregateType">
                                                 <option *ngFor="let aggType of aggregateTypes" value="{{aggType.value}}">{{aggType.name}}</option>
                                             </select>
                                         </div>
@@ -35,21 +35,6 @@
                 </app-popover>
             </div>
         </i>
-
-
-        <!--
-
-        <div class="dropdown">
-            <i class="pi pi-ellipsis-v" (click)="showDropdownContent()"></i>
-            <div [id]="idDropdownContent" class="dropdown-content">
-                <p class="option" (click)="askResetZoomChart()"  *ngIf="chartType==='lineChart' || chartType==='barGraph'">Réinitialiser zoom</p>
-                <p class="option" (click)="askExportDatas()">Exporter les données</p>
-                <p class="option">Agrégation des données</p>
-            </div>
-        </div>
-
-        -->
-
     </span>
 </div>
 <div class="mainArea">

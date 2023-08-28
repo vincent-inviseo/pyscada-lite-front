@@ -50,6 +50,8 @@ export class WidgetComponent implements AfterViewInit, OnInit {
 
   public aggregateTypes!: any[];
 
+  public idAggregateLabel!: string;
+
   constructor(
     private readonly primeNgDialogService: DialogService
   ) {}
@@ -68,7 +70,8 @@ export class WidgetComponent implements AfterViewInit, OnInit {
     this.rangeDates.push(currentDatetime);
 
     this.chartType = this.chartTypes.getNameByValue(this.chart.chart.chartType);  
-    this.idGraph = this.idGraph + `_${Math.floor(Math.random() * 10000 + 1)}`; 
+    this.idGraph = this.idGraph + `_${Math.floor(Math.random() * 10000 + 1)}`;
+    this.idAggregateLabel = "aggregateLabel" + `_${Math.floor(Math.random() * 10000 + 1)}`;
   }
 
   public zoomGrapModal(chart:any): void {

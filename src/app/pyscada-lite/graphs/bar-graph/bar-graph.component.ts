@@ -146,7 +146,7 @@ export class BarGraphComponent implements AfterViewInit, OnChanges {
         this.chartService.getVariablesValuesByRangeDatesAndChartId(this.chart.chart.id, date_start, date_end, this.aggregateType).subscribe((variablesValues) => {
           this.chart.datas.variables = variablesValues;
           this.updateBarGraph(this.chart);
-        })
+        });
       }
     }
   }
