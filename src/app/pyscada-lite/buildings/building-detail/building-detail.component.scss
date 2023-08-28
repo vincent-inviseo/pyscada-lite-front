@@ -1,6 +1,7 @@
 .widgetsContainer {
     display: flex;
     flex-direction: row;
+    flex-wrap: wrap;
     .widgetBarGraph {
         padding-top: 50px;
         margin-left: 25px;
