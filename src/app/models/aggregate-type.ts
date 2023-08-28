@@ -14,8 +14,4 @@ export class AggregateTypes {
     // public aggregateTypes: any[] = [this.minute, this.hour, this.day, this.week, this.month, this.year, this.custom];
 
     public aggregateTypes: any[] = [this.minute, this.hour, this.day, this.week, this.month, this.year];
-
-    public AggregateTypes(): void {
-
-    }
 }

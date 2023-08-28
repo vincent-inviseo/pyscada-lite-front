@@ -29,8 +29,6 @@ export class LineChartComponent implements AfterViewInit, OnChanges {
 
   @Input() public chart!: any;
 
-  @Input() public chartWidth = "";
-
   @Input() public chartHeight = "";
 
   @Input() public rangeDates!: any[];

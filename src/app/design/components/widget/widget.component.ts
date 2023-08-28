@@ -22,8 +22,6 @@ export class WidgetComponent implements AfterViewInit, OnInit {
 
   @Input() public chart!: any
 
-  @Input() public chartWidth = ""
-
   @Input() public chartHeight = "";
 
   @Input() public colorLoneValue = "var(--main-blue)";

@@ -11,8 +11,6 @@ export class LoadProfileComponent implements AfterViewInit {
 
   @Input() public chart!: any;
 
-  @Input() public chartWidth = "";
-
   @Input() public chartHeight = "";
 
   @Input() public id!: string;

@@ -24,8 +24,6 @@ export class DoughnutComponent implements AfterViewInit, OnChanges {
 
   @Input() public chart!: any;
 
-  @Input() public chartWidth = "";
-
   @Input() public chartHeight = "";
 
   @Input() public rangeDates!: any[];
@@ -34,16 +32,26 @@ export class DoughnutComponent implements AfterViewInit, OnChanges {
 
   @Input() public aggregateType!: number;
 
+  
+
   public labelsValues = ["Italy", "France", "Spain", "USA", "Argentina", "test"];
   public values = [55, 49, 44, 24, 15, 30];
   public colors = ["#4C0BC6", "#02C794", "#FAC528", "#27BEF2", "#EA4C87", "#000000"];
 
   public sumValues = 0;
 
+  /*
+
+  public datasetLabels: string[] = [];
+  public datasetData: any[] = [];
+
+  */
+
+
   public doughnut!: Chart<"doughnut", number[], string>;
 
   public ngAfterViewInit(): void {
-    this.values.forEach(value => { this.sumValues = this.sumValues + value });
+    // this.values.forEach(value => { this.sumValues = this.sumValues + value });
     this.setDoughnut();
   }
 
@@ -66,7 +74,7 @@ export class DoughnutComponent implements AfterViewInit, OnChanges {
         }
         this.chartService.getVariablesValuesByRangeDatesAndChartId(this.chart.chart.id, date_start, date_end, this.aggregateType).subscribe((variablesValues) => {
           this.chart.datas.variables = variablesValues;
-          // this.updateDoughnut(this.chart);
+          this.updateDoughnut(this.chart);
         });
       }
     }
@@ -83,19 +91,30 @@ export class DoughnutComponent implements AfterViewInit, OnChanges {
         }
         this.chartService.getVariablesValuesByRangeDatesAndChartId(this.chart.chart.id, date_start, date_end, this.aggregateType).subscribe((variablesValues) => {
           this.chart.datas.variables = variablesValues;
-          // this.updateDoughnut(this.chart);
+          this.updateDoughnut(this.chart);
         });
       }
     }
   }
 
+  /*
+
   public setValuesDataset(chart: any) {
-    
+    this.datasetData = [];
+    this.datasetLabels = [];
+    const variables = chart.datas.variables;
+    for (let i = 0; i < variables.length; i++) {
+
+    }
   }
+
+  */
 
   public updateDoughnut(chart: any) {
 
   }
+
+  
 
   centerText = {
     id: 'centerText',
@@ -113,7 +132,7 @@ export class DoughnutComponent implements AfterViewInit, OnChanges {
         ctx.fillStyle = 'black';
         ctx.textAlign = 'center';
         ctx.textBaseline = 'middle';
-        ctx.fillText((100 * value / this.sumValues).toFixed(2) + ' %', left + width / 2, top + height / 2);
+        // ctx.fillText((100 * value / this.sumValues).toFixed(2) + ' %', left + width / 2, top + height / 2);
         chart.update();
       }
     }
@@ -124,11 +143,11 @@ export class DoughnutComponent implements AfterViewInit, OnChanges {
     this.doughnut = new Chart(this.id, {
       type: 'doughnut',
       data: {
-          labels: this.labelsValues,
+          labels: this.labelsValues, // this.datasetLabels,
           datasets: [
             {
-              data: this.values,
-              backgroundColor: this.colors
+              data: this.values, // this.datasetData
+              // backgroundColor: this.colors
             }
         ]
       },
