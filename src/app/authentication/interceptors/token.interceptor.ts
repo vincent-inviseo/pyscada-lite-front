@@ -12,7 +12,6 @@ import { TokenStorageService } from 'src/app/authentication/services/token-stora
 @Injectable()
 export class TokenInterceptor implements HttpInterceptor {
   constructor(
-    private readonly router: Router,
     private readonly tokenStorage: TokenStorageService,
   ) {}
 
