@@ -5,6 +5,7 @@ import { UntilDestroy } from '@ngneat/until-destroy';
 import { ChartService } from 'src/app/requests/chart.service';
 import { ChartType } from 'src/app/models/chart-type';
 import { DateCleanerGraphService } from 'src/app/services/date-cleaner-graph.service';
+import { chartWidth } from 'src/app/models/chart-width';
 
 @UntilDestroy()
 @Component({
@@ -16,6 +17,8 @@ export class BuildingDetailComponent implements OnInit {
 
   public chartTypes = new ChartType();
 
+  public chartWidths = new chartWidth();
+ 
   public charts: any[] = [];
 
   public rangeDates: any[] = [];
@@ -46,6 +49,7 @@ export class BuildingDetailComponent implements OnInit {
                 const date_end = this.dateCleanerGraphService.cleanDateForFilterBackend(this.rangeDates[1]).toString();
                 this.chartService.getVariablesValuesByRangeDatesAndChartId(chart_id, date_start, date_end, 0).subscribe((variablesValues) => {
                   chart_datas.datas.variables = variablesValues;
+                  chart_datas.chart.width = this.chartWidths.getWidthInVh(chart_datas.chart.width);
                   this.charts.push(chart_datas);
                 })
               })

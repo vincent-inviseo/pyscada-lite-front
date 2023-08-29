@@ -24,8 +24,6 @@ export class DoughnutComponent implements AfterViewInit, OnChanges {
 
   @Input() public chart!: any;
 
-  @Input() public chartWidth = "";
-
   @Input() public chartHeight = "";
 
   @Input() public rangeDates!: any[];
@@ -40,10 +38,18 @@ export class DoughnutComponent implements AfterViewInit, OnChanges {
 
   public sumValues = 0;
 
+  /*
+  // For received data from captors
+  public datasetLabels: string[] = [];
+  public datasetData: any[] = [];
+
+  */
+
+
   public doughnut!: Chart<"doughnut", number[], string>;
 
   public ngAfterViewInit(): void {
-    this.values.forEach(value => { this.sumValues = this.sumValues + value });
+    // this.values.forEach(value => { this.sumValues = this.sumValues + value });
     this.setDoughnut();
   }
 
@@ -89,13 +95,22 @@ export class DoughnutComponent implements AfterViewInit, OnChanges {
     }
   }
 
+  /*
+  // For setting up dataset with received data from captors
   public setValuesDataset(chart: any) {
-    
+    this.datasetData = [];
+    this.datasetLabels = [];
+    const variables = chart.datas.variables;
+    for (let i = 0; i < variables.length; i++) {
+
+    }
   }
 
   public updateDoughnut(chart: any) {
 
   }
+
+  */
 
   centerText = {
     id: 'centerText',
@@ -113,7 +128,9 @@ export class DoughnutComponent implements AfterViewInit, OnChanges {
         ctx.fillStyle = 'black';
         ctx.textAlign = 'center';
         ctx.textBaseline = 'middle';
-        ctx.fillText((100 * value / this.sumValues).toFixed(2) + ' %', left + width / 2, top + height / 2);
+        // To handle showing percentage center of doughnut
+        // To adapt with consumption data received from captors as example
+        // ctx.fillText((100 * value / this.sumValues).toFixed(2) + ' %', left + width / 2, top + height / 2);
         chart.update();
       }
     }
@@ -124,11 +141,11 @@ export class DoughnutComponent implements AfterViewInit, OnChanges {
     this.doughnut = new Chart(this.id, {
       type: 'doughnut',
       data: {
-          labels: this.labelsValues,
+          labels: this.labelsValues, // this.datasetLabels,
           datasets: [
             {
-              data: this.values,
-              backgroundColor: this.colors
+              data: this.values, // this.datasetData
+              // backgroundColor: this.colors
             }
         ]
       },

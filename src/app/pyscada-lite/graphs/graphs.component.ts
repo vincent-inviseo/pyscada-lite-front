@@ -18,8 +18,6 @@ export class GraphsComponent implements AfterContentInit {
 
   @Input() public chart!: any;
 
-  @Input() public chartWidth = "";
-
   @Input() public chartHeight = "";
 
   @Input() public rangeDates!: any[];

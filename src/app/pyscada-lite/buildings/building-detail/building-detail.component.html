@@ -1,10 +1,7 @@
-
-
 <div class="widgetsContainer">
     <div *ngFor="let chart of charts">
         <div class="widget" *ngIf="chart.chart.position===0 || chart.chart.position===1">
             <div class="" [ngStyle]="{ 'width': chart.chart.width }">
-                <!-- <app-widget  [chart]="chart" ></app-widget> -->
                 <app-widget [title]="chart.chart.name" [chartHeight]="'50vh'" [chart]="chart" *ngIf="chartTypes.getNameByValue(chart.chart.chartType)==='barGraph'"></app-widget>
                 <app-widget [title]="chart.chart.name" [chartHeight]="'50vh'" [chart]="chart" *ngIf="chartTypes.getNameByValue(chart.chart.chartType)==='lineChart'"></app-widget>
                 <app-widget [title]="chart.chart.name" [chartHeight]="'30vh'" [chart]="chart" *ngIf="chartTypes.getNameByValue(chart.chart.chartType)==='doughnut'"></app-widget>
@@ -27,34 +24,3 @@
         </div>
     </div>
 </div>
-
-
-
-
-
-
-<!--
-
-<div class="widgetsContainer">
-    <div class="widgetBarGraph">
-        <app-widget [chartHeight]="'75vh'" [idGraph]="'mainBarGraph'" [chartType]="'barGraph'" [title]="'Consommation'"></app-widget>
-    </div>
-
-    <div class="widgetsRightSide">
-        <div class="valueOnly">
-            <div class="loneValue">
-                <app-widget [idGraph]="'loneValue'" [chartType]="'number'" [title]="'Consommation'" [colorLoneValue]="'var(--main-blue)'" [loneValue]="'430,14'" [unitLoneValue]="'kW'"></app-widget>
-            </div>
-
-            <div class="loneValueRightmost">
-                <app-widget [idGraph]="'loneVal'" [chartType]="'number'" [title]="'Consommation'" [colorLoneValue]="'var(--main-blue)'" [loneValue]="'430,14'" [unitLoneValue]="'kW'"></app-widget>
-            </div>
-        </div>
-
-        <div class="lineChart">
-            <app-widget [idGraph]="'lineChart'" [chartHeight]="'355px'" [chartType]="'lineChart'" [title]="'Conso en graphe linéaire'"></app-widget>
-        </div>
-    </div>
-</div>
-
--->
