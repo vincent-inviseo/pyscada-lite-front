@@ -41,7 +41,7 @@ export class DoughnutComponent implements AfterViewInit, OnChanges {
   public sumValues = 0;
 
   /*
-
+  // For received data from captors
   public datasetLabels: string[] = [];
   public datasetData: any[] = [];
 
@@ -74,7 +74,7 @@ export class DoughnutComponent implements AfterViewInit, OnChanges {
         }
         this.chartService.getVariablesValuesByRangeDatesAndChartId(this.chart.chart.id, date_start, date_end, this.aggregateType).subscribe((variablesValues) => {
           this.chart.datas.variables = variablesValues;
-          this.updateDoughnut(this.chart);
+          // this.updateDoughnut(this.chart);
         });
       }
     }
@@ -91,14 +91,14 @@ export class DoughnutComponent implements AfterViewInit, OnChanges {
         }
         this.chartService.getVariablesValuesByRangeDatesAndChartId(this.chart.chart.id, date_start, date_end, this.aggregateType).subscribe((variablesValues) => {
           this.chart.datas.variables = variablesValues;
-          this.updateDoughnut(this.chart);
+          // this.updateDoughnut(this.chart);
         });
       }
     }
   }
 
   /*
-
+  // For setting up dataset with received data from captors
   public setValuesDataset(chart: any) {
     this.datasetData = [];
     this.datasetLabels = [];
@@ -108,13 +108,11 @@ export class DoughnutComponent implements AfterViewInit, OnChanges {
     }
   }
 
-  */
-
   public updateDoughnut(chart: any) {
 
   }
 
-  
+  */
 
   centerText = {
     id: 'centerText',
@@ -132,6 +130,8 @@ export class DoughnutComponent implements AfterViewInit, OnChanges {
         ctx.fillStyle = 'black';
         ctx.textAlign = 'center';
         ctx.textBaseline = 'middle';
+        // To handle showing percentage center of doughnut
+        // To adapt with consumption data received from captors as example
         // ctx.fillText((100 * value / this.sumValues).toFixed(2) + ' %', left + width / 2, top + height / 2);
         chart.update();
       }
