@@ -26,6 +26,7 @@
     "@types/file-saver": "^2.0.5",
     "chart.js": "^4.3.3",
     "chartjs-plugin-zoom": "^2.0.1",
+    "csv-parser": "^3.0.0",
     "file-saver": "^2.0.5",
     "ng2-charts": "^4.1.1",
     "prettier": "^2.8.8",
