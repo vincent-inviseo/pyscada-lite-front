@@ -32,6 +32,8 @@ export class DoughnutComponent implements AfterViewInit, OnChanges {
 
   @Input() public generateCsv = false;
 
+  @Input() public aggregateType!: number;
+
   public labelsValues = ["Italy", "France", "Spain", "USA", "Argentina", "test"];
   public values = [55, 49, 44, 24, 15, 30];
   public colors = ["#4C0BC6", "#02C794", "#FAC528", "#27BEF2", "#EA4C87", "#000000"];
@@ -51,7 +53,6 @@ export class DoughnutComponent implements AfterViewInit, OnChanges {
         this.askExportDatas();
       }
     }
-    /*
     if (changes['rangeDates'] != undefined) {
       if (changes['rangeDates'].previousValue != undefined) {
         const date_start = this.dateCleanerGraphService.cleanDateForFilterBackend(this.rangeDates[0]);
@@ -63,13 +64,37 @@ export class DoughnutComponent implements AfterViewInit, OnChanges {
         else {
           date_end = this.dateCleanerGraphService.cleanDateForFilterBackend(this.rangeDates[1]).toString();
         }
-        this.chartService.getVariablesValuesByRangeDatesAndChartId(this.chart.chart.id, date_start, date_end).subscribe((variablesValues) => {
+        this.chartService.getVariablesValuesByRangeDatesAndChartId(this.chart.chart.id, date_start, date_end, this.aggregateType).subscribe((variablesValues) => {
           this.chart.datas.variables = variablesValues;
           // this.updateDoughnut(this.chart);
-        })
+        });
       }
     }
-    */
+    else if (changes['aggregateType'] != undefined) {
+      if (changes['aggregateType'].previousValue != undefined) {
+        const date_start = this.dateCleanerGraphService.cleanDateForFilterBackend(this.rangeDates[0]);
+        let date_end!: string;
+        if (this.rangeDates[1] == null) {
+          const currentDatetime = new Date();
+          date_end = this.dateCleanerGraphService.cleanDateForFilterBackend(currentDatetime).toString();
+        }
+        else {
+          date_end = this.dateCleanerGraphService.cleanDateForFilterBackend(this.rangeDates[1]).toString();
+        }
+        this.chartService.getVariablesValuesByRangeDatesAndChartId(this.chart.chart.id, date_start, date_end, this.aggregateType).subscribe((variablesValues) => {
+          this.chart.datas.variables = variablesValues;
+          // this.updateDoughnut(this.chart);
+        });
+      }
+    }
+  }
+
+  public setValuesDataset(chart: any) {
+    
+  }
+
+  public updateDoughnut(chart: any) {
+
   }
 
   centerText = {
@@ -102,7 +127,6 @@ export class DoughnutComponent implements AfterViewInit, OnChanges {
           labels: this.labelsValues,
           datasets: [
             {
-              label: "Wine types",
               data: this.values,
               backgroundColor: this.colors
             }

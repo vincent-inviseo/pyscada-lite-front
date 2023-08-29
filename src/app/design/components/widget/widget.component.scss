@@ -83,37 +83,38 @@
 ::ng-deep .p-inputtext {
     font-size: 10px;
 }
-  
-/* The container <div> - needed to position the dropdown content */
+
 .dropdown {
     position: relative;
     display: inline-block;
 }
-  
-/* Dropdown Content (Hidden by Default) */
-.dropdown-content {
-    display: none;
-    position: absolute;
-    background-color: #FFFFFF;
-    border-radius: 6px;
-    min-width: 200px;
-    box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
-    z-index: 5;
+
+/* Links inside the dropdown */
+.app-popover-menu-item .element {
+    color: black;
+    padding: 12px 16px;
+    text-decoration: none;
+    display: flex;
+}
+
+.element {
+    display: flex;
     align-items: center;
     justify-content: center;
-    padding-top: 5px;
-    padding-bottom: 5px;
-    font-family: var(--main-title-font-family);
-    transform: translateX(-180px);
-
-    .option {
-        padding-top: 5px;
-        cursor: pointer;
+    .text {
+      padding-left: 15px;
+    }
+    .aggregateLabel {
+        display: block;
+        align-items: center;
+        .text {
+            padding-bottom: 5px;
+        }
+        .aggregateSelect {
+            padding-top: 5px;
+        }
+        .aggregateType {
+            width: 100%;
+        }
     }
 }
-
-.dropdown-content.show {
-    display: flex;
-    flex-direction: column;
-}
-

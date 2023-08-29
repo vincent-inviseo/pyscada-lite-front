@@ -7,6 +7,8 @@ import zoomPlugin from 'chartjs-plugin-zoom';
 import { DateCleanerGraphService } from 'src/app/services/date-cleaner-graph.service';
 import { ChartService } from 'src/app/requests/chart.service';
 import { ExportDataAsCsvService } from 'src/app/services/export-as-csv';
+import { DialogService } from 'primeng/dynamicdialog';
+import { ExportDataComponent } from 'src/app/design/modals/export-data/export-data.component';
 
 @Component({
   selector: 'app-line-chart',
@@ -19,7 +21,8 @@ export class LineChartComponent implements AfterViewInit, OnChanges {
   constructor(
     private readonly dateCleanerGraphService: DateCleanerGraphService,
     private readonly chartService: ChartService,
-    private readonly exportAsCsvService: ExportDataAsCsvService
+    private readonly exportAsCsvService: ExportDataAsCsvService,
+    private readonly primeNgDialogService: DialogService
     ) {}
 
   @Input() public id!: string;
@@ -35,6 +38,8 @@ export class LineChartComponent implements AfterViewInit, OnChanges {
   @Input() public resetZoom = false;
 
   @Input() public generateCsv = false;
+
+  @Input() public aggregateType!: number;
 
   public xAxisLabels: string[] = [];
   public yAxisLabel = "";
@@ -128,10 +133,27 @@ export class LineChartComponent implements AfterViewInit, OnChanges {
         else {
           date_end = this.dateCleanerGraphService.cleanDateForFilterBackend(this.rangeDates[1]).toString();
         }
-        this.chartService.getVariablesValuesByRangeDatesAndChartId(this.chart.chart.id, date_start, date_end, 0).subscribe((variablesValues) => {
+        this.chartService.getVariablesValuesByRangeDatesAndChartId(this.chart.chart.id, date_start, date_end, this.aggregateType).subscribe((variablesValues) => {
           this.chart.datas.variables = variablesValues;
           this.updateLineChart(this.chart);
         })
+      }
+    }
+    else if (changes['aggregateType'] != undefined) {
+      if (changes['aggregateType'].previousValue != undefined) {
+        const date_start = this.dateCleanerGraphService.cleanDateForFilterBackend(this.rangeDates[0]);
+        let date_end!: string;
+        if (this.rangeDates[1] == null) {
+          const currentDatetime = new Date();
+          date_end = this.dateCleanerGraphService.cleanDateForFilterBackend(currentDatetime).toString();
+        }
+        else {
+          date_end = this.dateCleanerGraphService.cleanDateForFilterBackend(this.rangeDates[1]).toString();
+        }
+        this.chartService.getVariablesValuesByRangeDatesAndChartId(this.chart.chart.id, date_start, date_end, this.aggregateType).subscribe((variablesValues) => {
+          this.chart.datas.variables = variablesValues;
+          this.updateLineChart(this.chart);
+        });
       }
     }
   }

@@ -1,0 +1,95 @@
+.popover-menu--container {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  text-align: left;
+
+  app-popover-menu-item:last-child {
+    border-bottom: none;
+  }
+}
+
+.popover-menu--container>app-popover-menu-item,
+.popover-menu--container>[app-popover-menu-item] {
+  display: flex;
+  align-items: center;
+  align-content: center;
+  justify-content: flex-start;
+  height: 36px;
+  background-color: #fff;
+  cursor: pointer;
+  transition: all .2s
+}
+
+.popover-menu--container>app-popover-menu-item a,
+.popover-menu--container>[app-small-menu-item] a {
+  display: flex;
+  width: 100%
+}
+
+.popover-menu--container>app-popover-menu-item span,
+.popover-menu--container>[app-small-menu-item] span {
+  color: #06070e
+}
+
+.popover-menu--container>app-popover-menu-item .inv-icon,
+.popover-menu--container>[app-small-menu-item] .inv-icon {
+  font-size: 14px;
+  color: #4a4e5f;
+  margin-right: 12px
+}
+
+.popover-menu--container>app-popover-menu-item.red .inv-icon,
+.popover-menu--container>[app-small-menu-item].red .inv-icon {
+  color: #d62c3f
+}
+
+.popover-menu--container>app-popover-menu-item.red:hover,
+.popover-menu--container>[app-small-menu-item].red:hover {
+  background-color: #fcf0f1;
+}
+
+.popover-menu--container>app-popover-menu-item+div,
+.popover-menu--container>[app-small-menu-item]+div,
+.popover-menu--container>app-popover-menu-item+hr,
+.popover-menu--container>[app-small-menu-item]+hr {
+  margin-top: 4px
+}
+
+.popover-menu--container>app-popover-menu-item:hover,
+.popover-menu--container>[app-small-menu-item]:hover {
+  background-color: #efeff5
+}
+
+.popover-menu--container>app-popover-menu-item.active,
+.popover-menu--container>[app-small-menu-item].active {
+  background-color: #dde3fb;
+  cursor: default
+}
+
+.popover-menu--container>app-popover-menu-item.active span,
+.popover-menu--container>[app-small-menu-item].active span,
+.popover-menu--container>app-small-menu-item.active i,
+.popover-menu--container>[app-small-menu-item].active i {
+  color: var(--blue-700);
+}
+
+.popover-menu--container hr {
+  display: block;
+  border: none;
+  width: 100%;
+  position: relative;
+  margin-bottom: 4px;
+  background-color: transparent
+}
+
+.popover-menu--container hr:before {
+  content: '';
+  position: absolute;
+  height: 1px;
+  width: calc(100% + 20px);
+  left: -10px;
+  top: 0;
+  background-color: #efeff5
+}
+

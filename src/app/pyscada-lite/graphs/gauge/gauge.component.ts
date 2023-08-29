@@ -23,6 +23,8 @@ export class GaugeComponent implements AfterViewInit {
 
   @Input() public generateCsv = false;
 
+  @Input() public aggregateType!: number;
+
   public label: string[] = ["Water consumption"];
   public percentage = 55;
   public gaugeColor = "#4C0BC6"

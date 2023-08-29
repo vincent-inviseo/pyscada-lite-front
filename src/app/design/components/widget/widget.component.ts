@@ -5,8 +5,7 @@ import { Component, Input, AfterViewInit, OnInit } from '@angular/core';
 import { ChartType } from 'src/app/models/chart-type';
 import { ZoomModalComponent } from 'src/app/pyscada-lite/graphs/zoom-modal/zoom-modal.component';
 import { DialogService } from 'primeng/dynamicdialog';
-import { ChartService } from 'src/app/requests/chart.service';
-import { DateCleanerGraphService } from 'src/app/services/date-cleaner-graph.service';
+import { AggregateTypes } from 'src/app/models/aggregate-type';
 
 @Component({
   selector: 'app-widget',
@@ -47,10 +46,14 @@ export class WidgetComponent implements AfterViewInit, OnInit {
 
   public generateCsv = false;
 
+  public aggregateType: number = 0;
+
+  public aggregateTypes!: any[];
+
+  public idAggregateLabel!: string;
+
   constructor(
-    private readonly primeNgDialogService: DialogService,
-    private readonly chartService: ChartService,
-    private readonly dateCleanerGraphService: DateCleanerGraphService
+    private readonly primeNgDialogService: DialogService
   ) {}
 
   public ngAfterViewInit(): void {
@@ -58,6 +61,8 @@ export class WidgetComponent implements AfterViewInit, OnInit {
   }
 
   public ngOnInit(): void {
+    const aggTypes = new AggregateTypes();
+    this.aggregateTypes = aggTypes.aggregateTypes;
     const currentDatetime = new Date();
     const datetime24HoursBefore = new Date();
     datetime24HoursBefore.setDate(datetime24HoursBefore.getDate() - 1);
@@ -66,20 +71,7 @@ export class WidgetComponent implements AfterViewInit, OnInit {
 
     this.chartType = this.chartTypes.getNameByValue(this.chart.chart.chartType);  
     this.idGraph = this.idGraph + `_${Math.floor(Math.random() * 10000 + 1)}`;
-    this.idDropdownContent = `dropdownContent_${Math.floor(Math.random() * 10000 + 1)}`;
-    
-    // Close the dropdown menu if the user clicks outside of it
-    window.onclick = (event: any) => {
-      if (!event.target.matches('i.pi.pi-ellipsis-v')) {
-        const dropdowns = document.getElementsByClassName("dropdown-content");
-        for (let i = 0; i < dropdowns.length; i++) {
-          const openDropdown = dropdowns[i];
-          if (openDropdown.classList.contains('show')) {
-            openDropdown.classList.remove('show');
-          }
-        }
-      }
-    }
+    this.idAggregateLabel = "aggregateLabel" + `_${Math.floor(Math.random() * 10000 + 1)}`;
   }
 
   public zoomGrapModal(chart:any): void {
@@ -89,15 +81,17 @@ export class WidgetComponent implements AfterViewInit, OnInit {
 
   }
 
-  public showDropdownContent(): void {
-    document.getElementById(this.idDropdownContent)?.classList.toggle("show");
-  }
-
   public askResetZoomChart(): void {
     this.resetZoom = !this.resetZoom;
   }
 
   public askExportDatas(): void {
+    // In component of the chart, open modal with primeNgDialogueService
     this.generateCsv = !this.generateCsv; 
+  }
+
+  public prevent($event:any): void {
+    $event.preventDefault();
+    $event.stopPropagation();
   }
 }
