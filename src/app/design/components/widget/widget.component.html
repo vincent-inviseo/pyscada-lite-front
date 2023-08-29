@@ -5,7 +5,7 @@
         <i class="pi pi-window-maximize" (click)="zoomGrapModal(chart)"></i>
         <i class="pi pi-ellipsis-v" (click)="prevent($event); menu.open()">
             <div class="dropdown">
-                <app-popover [popoverTpl]="popoverMenu" size="s" pos="right" [align]="'right'" #menu>
+                <app-popover [popoverTpl]="popoverMenu" size="s" pos="bottom" [align]="'right'" #menu>
                     <ng-template #popoverMenu>
                         <app-popover-menu>
                             <app-popover-menu-item (click)="menu.close()">
