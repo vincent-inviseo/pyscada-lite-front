@@ -4,13 +4,13 @@
   width: 100%;
   text-align: left;
 
-  fcs-popover-menu-item:last-child {
+  app-popover-menu-item:last-child {
     border-bottom: none;
   }
 }
 
-.popover-menu--container>fcs-popover-menu-item,
-.popover-menu--container>[fcs-popover-menu-item] {
+.popover-menu--container>app-popover-menu-item,
+.popover-menu--container>[app-popover-menu-item] {
   display: flex;
   align-items: center;
   align-content: center;
@@ -21,56 +21,56 @@
   transition: all .2s
 }
 
-.popover-menu--container>fcs-popover-menu-item a,
-.popover-menu--container>[fcs-small-menu-item] a {
+.popover-menu--container>app-popover-menu-item a,
+.popover-menu--container>[app-small-menu-item] a {
   display: flex;
   width: 100%
 }
 
-.popover-menu--container>fcs-popover-menu-item span,
-.popover-menu--container>[fcs-small-menu-item] span {
+.popover-menu--container>app-popover-menu-item span,
+.popover-menu--container>[app-small-menu-item] span {
   color: #06070e
 }
 
-.popover-menu--container>fcs-popover-menu-item .inv-icon,
-.popover-menu--container>[fcs-small-menu-item] .inv-icon {
+.popover-menu--container>app-popover-menu-item .inv-icon,
+.popover-menu--container>[app-small-menu-item] .inv-icon {
   font-size: 14px;
   color: #4a4e5f;
   margin-right: 12px
 }
 
-.popover-menu--container>fcs-popover-menu-item.red .inv-icon,
-.popover-menu--container>[fcs-small-menu-item].red .inv-icon {
+.popover-menu--container>app-popover-menu-item.red .inv-icon,
+.popover-menu--container>[app-small-menu-item].red .inv-icon {
   color: #d62c3f
 }
 
-.popover-menu--container>fcs-popover-menu-item.red:hover,
-.popover-menu--container>[fcs-small-menu-item].red:hover {
+.popover-menu--container>app-popover-menu-item.red:hover,
+.popover-menu--container>[app-small-menu-item].red:hover {
   background-color: #fcf0f1;
 }
 
-.popover-menu--container>fcs-popover-menu-item+div,
-.popover-menu--container>[fcs-small-menu-item]+div,
-.popover-menu--container>fcs-popover-menu-item+hr,
-.popover-menu--container>[fcs-small-menu-item]+hr {
+.popover-menu--container>app-popover-menu-item+div,
+.popover-menu--container>[app-small-menu-item]+div,
+.popover-menu--container>app-popover-menu-item+hr,
+.popover-menu--container>[app-small-menu-item]+hr {
   margin-top: 4px
 }
 
-.popover-menu--container>fcs-popover-menu-item:hover,
-.popover-menu--container>[fcs-small-menu-item]:hover {
+.popover-menu--container>app-popover-menu-item:hover,
+.popover-menu--container>[app-small-menu-item]:hover {
   background-color: #efeff5
 }
 
-.popover-menu--container>fcs-popover-menu-item.active,
-.popover-menu--container>[fcs-small-menu-item].active {
+.popover-menu--container>app-popover-menu-item.active,
+.popover-menu--container>[app-small-menu-item].active {
   background-color: #dde3fb;
   cursor: default
 }
 
-.popover-menu--container>fcs-popover-menu-item.active span,
-.popover-menu--container>[fcs-small-menu-item].active span,
-.popover-menu--container>fcs-small-menu-item.active i,
-.popover-menu--container>[fcs-small-menu-item].active i {
+.popover-menu--container>app-popover-menu-item.active span,
+.popover-menu--container>[app-small-menu-item].active span,
+.popover-menu--container>app-small-menu-item.active i,
+.popover-menu--container>[app-small-menu-item].active i {
   color: var(--blue-700);
 }
 
