@@ -32,5 +32,10 @@ export class ImportDataComponent {
       console.log("error headers", error);
       
     });
+
+    this.csvFormatValidatorService.parseEntireCsvFile(this.csvFile).then((response) => {
+      console.log('response parse entire csv file', response);
+      
+    })
   }
 }
