@@ -25,8 +25,8 @@ export class ImportDataComponent {
 
   public verifyFormatFile($event: any): void {
     this.csvFile = $event.target.files[0];
-    this.csvFormatValidatorService.getHeadersFromFile(this.csvFile).then((headers) => {
-      console.log("headers", headers);
+    this.csvFormatValidatorService.getHeadersFromFile(this.csvFile).then((formatedDocument) => {
+      console.log("formatedDocument", formatedDocument);
       
     }).catch((error) => {
       console.log("error headers", error);
