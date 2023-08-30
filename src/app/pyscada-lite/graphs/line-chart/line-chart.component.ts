@@ -132,8 +132,22 @@ export class LineChartComponent implements AfterViewInit, OnChanges {
           date_end = this.dateCleanerGraphService.cleanDateForFilterBackend(this.rangeDates[1]).toString();
         }
         this.chartService.getVariablesValuesByRangeDatesAndChartId(this.chart.chart.id, date_start, date_end, this.aggregateType).subscribe((variablesValues) => {
-          this.chart.datas.variables = variablesValues;
-          this.updateLineChart(this.chart);
+          let j = 0;
+          for (let i = 0; i < variablesValues.length; i++) {
+            if (variablesValues[i].values.length <= 0) {
+              j++
+            }
+          }
+          if (j == variablesValues.length) {
+            this.chart.variables = [];
+            this.lineChart.data.datasets = [];
+            this.lineChart.data.labels = [];
+            this.lineChart.update();
+          }
+          else {
+            this.chart.datas.variables = variablesValues;
+            this.updateLineChart(this.chart);
+          }
         })
       }
     }
@@ -149,8 +163,22 @@ export class LineChartComponent implements AfterViewInit, OnChanges {
           date_end = this.dateCleanerGraphService.cleanDateForFilterBackend(this.rangeDates[1]).toString();
         }
         this.chartService.getVariablesValuesByRangeDatesAndChartId(this.chart.chart.id, date_start, date_end, this.aggregateType).subscribe((variablesValues) => {
-          this.chart.datas.variables = variablesValues;
-          this.updateLineChart(this.chart);
+          let j = 0;
+          for (let i = 0; i < variablesValues.length; i++) {
+            if (variablesValues[i].values.length <= 0) {
+              j++
+            }
+          }
+          if (j == variablesValues.length) {
+            this.chart.variables = [];
+            this.lineChart.data.datasets = [];
+            this.lineChart.data.labels = [];
+            this.lineChart.update();
+          }
+          else {
+            this.chart.datas.variables = variablesValues;
+            this.updateLineChart(this.chart);
+          }
         });
       }
     }
