@@ -39,15 +39,21 @@ export class CsvFormatValidatorService {
       reader.onload = (event: ProgressEvent<FileReader>) => {
         const result = event.target?.result as string;
         const lines = result.split('\n');
-        
-        let headers:string[] = [];
+        let formatedJsonDocument: any = null;
+        let formatedDocument:string[] = [];
+
         lines.forEach(line => {
           let leftHeader = line.split(";")[0]
+          let values = line.split(";")
+          values.splice(0, 1);
           if(leftHeader.length !== 0) {
-            headers.push(leftHeader)
+            formatedJsonDocument = {
+              [leftHeader]: values
+            }
+            formatedDocument.push(formatedJsonDocument)
           }
         });
-        resolve(headers);
+        resolve(formatedDocument);
       };
 
       reader.onerror = () => {

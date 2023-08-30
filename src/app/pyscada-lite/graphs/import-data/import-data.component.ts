@@ -25,20 +25,12 @@ export class ImportDataComponent {
 
   public verifyFormatFile($event: any): void {
     this.csvFile = $event.target.files[0];
-    this.csvFormatValidatorService.getHeadersFromFile(this.csvFile).then((headers) => {
-      console.log("headers", headers);
+    this.csvFormatValidatorService.getHeadersFromFile(this.csvFile).then((formatedDocument) => {
+      // DO somethings
       
     }).catch((error) => {
       console.log("error headers", error);
       
     });
-    // this.csvFormatValidatorService.parseCsvFile(this.csvFile).then((data) => {
-    //   console.log("data", data);
-    //   console.log("data[1]", data[1]);
-    //   console.log("data[1] keys", Object.keys(data[1]));
-    // }).catch((error) => {
-    //   console.log(error);
-      
-    // });
   }
 }
