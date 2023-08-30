@@ -336,31 +336,7 @@ export class BarGraphComponent implements AfterViewInit, OnChanges {
   }
 
   public askExportDatas(): void {
-    const values = [...this.chart.datas.variables.map( (v:any) => v.values)];
-
-    let valuesConcat:any[] = []
-    console.log('values', values);
-    
-    values.forEach(element => {
-      valuesConcat.push(element)
-    });
-
-    console.log('values concat', valuesConcat);
-    
-    
-    // console.log("values", values);
-    // let concat: string;
-    // let concatResult = JSON.stringify(values[0]);
-    // for (let i = 1; i < values.length; i++) {
-    //   concat = JSON.stringify(values[i]);
-    //   concatResult = concatResult.concat(concat);
-    // }
-    // // concatResult = JSON.stringify(concatResult)
-    // const val = JSON.parse(concatResult);
-    // console.log(val.length);
-    // console.log(val);
-    
-    
-    this.exportAsCsvService.exportToCsv(valuesConcat, 'exportedData.csv');
+    const values = [...this.chart.datas.variables.map( (v:any) => v.values)];    
+    this.exportAsCsvService.exportToCsv(values, 'exportedData.csv');
   }
 }

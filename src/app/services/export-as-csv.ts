@@ -13,22 +13,28 @@ export class ExportDataAsCsvService {
     saveAs(data, fileName);
   }
 
-  public exportToCsv(rows: object[], fileName: string, columns?: string[]): any {
-    if (!rows || !rows.length) {
+  public exportToCsv(data: any, fileName: string, columns?: string[], separator:string = ";"): any {
+    let rowsConcat:any[] = [];
+    data.forEach((rows:any[]) => {
+      rows.forEach((row:any) => {
+        rowsConcat.push(row);      
+      });
+    })
+    
+    if (!rowsConcat || !rowsConcat.length) {
       return;
     }
-    const separator = ';';
-    const keys = Object.keys(rows[0]).filter(k => {
+    const keys = Object.keys(rowsConcat[0]).filter(k => {
       if (columns?.length) {
         return columns.includes(k);
       } else {
         return true;
       }
     });
-    const csvContent =
+    const csvContent = 
       keys.join(separator) +
       '\n' +
-      rows.map((row:any) => {
+      rowsConcat.map((row:any) => {
         return keys.map(k => {
           let cell = row[k] === null || row[k] === undefined ? '' : row[k];
           cell = cell instanceof Date

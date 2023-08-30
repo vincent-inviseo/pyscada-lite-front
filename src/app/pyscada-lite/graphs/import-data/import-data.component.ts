@@ -32,13 +32,13 @@ export class ImportDataComponent {
       console.log("error headers", error);
       
     });
-    this.csvFormatValidatorService.parseCsvFile(this.csvFile).then((data) => {
-      console.log("data", data);
-      console.log("data[1]", data[1]);
-      console.log("data[1] keys", Object.keys(data[1]));
-    }).catch((error) => {
-      console.log(error);
+    // this.csvFormatValidatorService.parseCsvFile(this.csvFile).then((data) => {
+    //   console.log("data", data);
+    //   console.log("data[1]", data[1]);
+    //   console.log("data[1] keys", Object.keys(data[1]));
+    // }).catch((error) => {
+    //   console.log(error);
       
-    });
+    // });
   }
 }
