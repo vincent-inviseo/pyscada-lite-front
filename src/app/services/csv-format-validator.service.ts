@@ -46,13 +46,14 @@ export class CsvFormatValidatorService {
   async getHeadersFromFile(file: File): Promise<string[]> {
     return new Promise<string[]>((resolve, reject) => {
       const reader = new FileReader();
+      const regex = /[,;]+/;
 
       reader.onload = (event: ProgressEvent<FileReader>) => {
         const result = event.target?.result as string;
         const lines = result.split('\n');
         
         if (lines.length > 0) {
-          const headers = lines[0].trim().split(',');
+          const headers = lines[0].trim().split(regex);
           resolve(headers);
         } else {
           reject(new Error('Empty file'));

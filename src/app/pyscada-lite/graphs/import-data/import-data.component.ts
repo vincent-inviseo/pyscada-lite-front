@@ -25,8 +25,13 @@ export class ImportDataComponent {
 
   public verifyFormatFile($event: any): void {
     this.csvFile = $event.target.files[0];
-    // Once getHeaders done handle parse and import
-    /*
+    this.csvFormatValidatorService.getHeadersFromFile(this.csvFile).then((headers) => {
+      console.log("headers", headers);
+      
+    }).catch((error) => {
+      console.log("error headers", error);
+      
+    });
     this.csvFormatValidatorService.parseCsvFile(this.csvFile).then((data) => {
       console.log("data", data);
       console.log("data[1]", data[1]);
@@ -35,6 +40,5 @@ export class ImportDataComponent {
       console.log(error);
       
     });
-    */
   }
 }
