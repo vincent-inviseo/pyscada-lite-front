@@ -39,4 +39,28 @@ export class CsvFormatValidatorService {
       reader.readAsText(file);
     });
   }
+
+  async getHeadersFromFile(file: File): Promise<string[]> {
+    return new Promise<string[]>((resolve, reject) => {
+      const reader = new FileReader();
+
+      reader.onload = (event: ProgressEvent<FileReader>) => {
+        const result = event.target?.result as string;
+        const lines = result.split('\n');
+        
+        if (lines.length > 0) {
+          const headers = lines[0].trim().split(',');
+          resolve(headers);
+        } else {
+          reject(new Error('Empty file'));
+        }
+      };
+
+      reader.onerror = () => {
+        reject(new Error('Error reading the file'));
+      };
+
+      reader.readAsText(file);
+    });
+  }
 }
