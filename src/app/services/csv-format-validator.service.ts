@@ -38,6 +38,7 @@ export class CsvFormatValidatorService {
 
       reader.onload = (event: ProgressEvent<FileReader>) => {
         const result = event.target?.result as string;
+        console.log('result reader', result);
         const lines = result.split('\n');
         let formatedJsonDocument: any = null;
         let formatedDocument:string[] = [];
@@ -58,6 +59,39 @@ export class CsvFormatValidatorService {
 
       reader.onerror = () => {
         reject(new Error('Error reading the file'));
+      };
+
+      reader.readAsText(file);
+    });
+  }
+
+  public parseEntireCsvFile(file: File): Promise<any[]> {
+    return new Promise((resolve, reject) => {
+      const reader = new FileReader();
+      const regex = /[,;]+/;
+
+      reader.onload = (event: any) => {
+        const csvData = event.target.result;
+        const rows = csvData.split('\n');
+        const headers = rows[0].split(regex);
+
+        const data = [];
+        for (let i = 1; i < rows.length; i++) {
+          const rowData = rows[i].split(regex);
+          if (rowData.length === headers.length) {
+            const entry: any = {};
+            for (let j = 0; j < headers.length; j++) {
+              entry[headers[j]] = rowData[j];
+            }
+            data.push(entry);
+          }
+        }
+
+        resolve(data);
+      };
+
+      reader.onerror = (error) => {
+        reject(error);
       };
 
       reader.readAsText(file);
