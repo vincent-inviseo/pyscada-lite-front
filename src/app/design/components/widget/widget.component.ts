@@ -88,6 +88,10 @@ export class WidgetComponent implements AfterViewInit, OnInit {
     this.generateCsv = !this.generateCsv; 
   }
 
+  public importData(): void {
+
+  }
+
   public prevent($event:any): void {
     $event.preventDefault();
     $event.stopPropagation();

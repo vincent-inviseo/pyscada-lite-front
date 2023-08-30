@@ -10,6 +10,7 @@ import { LoadProfileComponent } from './load-profile/load-profile.component';
 import { GraphsComponent } from './graphs.component';
 import { ZoomModalComponent } from './zoom-modal/zoom-modal.component';
 import { ExportDataComponentModule } from 'src/app/design/modals/export-data/export-data.module';
+import { ImportDataComponent } from './import-data/import-data.component';
 
 @NgModule({
   declarations: [
@@ -19,7 +20,8 @@ import { ExportDataComponentModule } from 'src/app/design/modals/export-data/exp
     LineChartComponent,
     LoadProfileComponent,
     GraphsComponent,
-    ZoomModalComponent
+    ZoomModalComponent,
+    ImportDataComponent
   ],
   imports: [
     CommonModule,
