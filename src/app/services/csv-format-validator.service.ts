@@ -31,7 +31,7 @@ export class CsvFormatValidatorService {
     link.click();
   }
 
-  async getHeadersFromFile(file: File): Promise<string[]> {
+  async getHeadersFromFile(file: File, seperator:string = ';'): Promise<string[]> {
     return new Promise<string[]>((resolve, reject) => {
       const reader = new FileReader();
       const regex = /[,;]+/;
@@ -39,18 +39,15 @@ export class CsvFormatValidatorService {
       reader.onload = (event: ProgressEvent<FileReader>) => {
         const result = event.target?.result as string;
         const lines = result.split('\n');
-
-        let headers:string[] = [];
         
-        if (lines.length > 0) {
-          lines.forEach(element => {
-            headers.push(element[0])
-          });
-          // const headers = lines[0].trim().split(',');
-          resolve(headers);
-        } else {
-          reject(new Error('Empty file'));
-        }
+        let headers:string[] = [];
+        lines.forEach(line => {
+          let leftHeader = line.split(";")[0]
+          if(leftHeader.length !== 0) {
+            headers.push(leftHeader)
+          }
+        });
+        resolve(headers);
       };
 
       reader.onerror = () => {

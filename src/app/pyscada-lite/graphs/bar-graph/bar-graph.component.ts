@@ -142,8 +142,14 @@ export class BarGraphComponent implements AfterViewInit, OnChanges {
           date_end = this.dateCleanerGraphService.cleanDateForFilterBackend(this.rangeDates[1]).toString();
         }
         this.chartService.getVariablesValuesByRangeDatesAndChartId(this.chart.chart.id, date_start, date_end, this.aggregateType).subscribe((variablesValues) => {
+          if (variablesValues.length >= 1) {
+            this.chart.datas.variables = variablesValues;
+            this.updateBarGraph(this.chart);
+          }
+          /*
           this.chart.datas.variables = variablesValues;
           this.updateBarGraph(this.chart);
+          */
         });
       }
     }
@@ -308,7 +314,7 @@ export class BarGraphComponent implements AfterViewInit, OnChanges {
   }
 
   public askExportDatas(): void {
-    const values = [...this.chart.datas.variables.map( (v:any) => v.values)];
-    this.exportAsCsvService.exportToCsv(values[0], 'exportedData.csv');
+    const values = [...this.chart.datas.variables.map( (v:any) => v.values)];    
+    this.exportAsCsvService.exportToCsv(values, 'exportedData.csv');
   }
 }
