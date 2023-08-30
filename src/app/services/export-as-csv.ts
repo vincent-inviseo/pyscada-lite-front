@@ -13,11 +13,10 @@ export class ExportDataAsCsvService {
     saveAs(data, fileName);
   }
 
-  public exportToCsv(rows: object[], fileName: string, columns?: string[]): any {
+  public exportToCsv(rows: object[], fileName: string, columns?: string[], separator:string = ";"): any {
     if (!rows || !rows.length) {
       return;
     }
-    const separator = ',';
     const keys = Object.keys(rows[0]).filter(k => {
       if (columns?.length) {
         return columns.includes(k);

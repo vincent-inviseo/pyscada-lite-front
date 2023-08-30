@@ -47,9 +47,14 @@ export class CsvFormatValidatorService {
       reader.onload = (event: ProgressEvent<FileReader>) => {
         const result = event.target?.result as string;
         const lines = result.split('\n');
+
+        let headers:string[] = [];
         
         if (lines.length > 0) {
-          const headers = lines[0].trim().split(',');
+          lines.forEach(element => {
+            headers.push(element[0])
+          });
+          // const headers = lines[0].trim().split(',');
           resolve(headers);
         } else {
           reject(new Error('Empty file'));
