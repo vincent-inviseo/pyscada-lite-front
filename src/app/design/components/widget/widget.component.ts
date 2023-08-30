@@ -6,6 +6,7 @@ import { ChartType } from 'src/app/models/chart-type';
 import { ZoomModalComponent } from 'src/app/pyscada-lite/graphs/zoom-modal/zoom-modal.component';
 import { DialogService } from 'primeng/dynamicdialog';
 import { AggregateTypes } from 'src/app/models/aggregate-type';
+import { ImportDataComponent } from 'src/app/pyscada-lite/graphs/import-data/import-data.component';
 
 @Component({
   selector: 'app-widget',
@@ -50,6 +51,8 @@ export class WidgetComponent implements AfterViewInit, OnInit {
 
   public idAggregateLabel!: string;
 
+  public importStep: number = 1;
+
   constructor(
     private readonly primeNgDialogService: DialogService
   ) {}
@@ -84,12 +87,15 @@ export class WidgetComponent implements AfterViewInit, OnInit {
   }
 
   public askExportDatas(): void {
-    // In component of the chart, open modal with primeNgDialogueService
     this.generateCsv = !this.generateCsv; 
   }
 
   public importData(): void {
-
+    const dialog = this.primeNgDialogService.open(ImportDataComponent, {
+      data: {
+        importStep: this.importStep
+      }
+    });
   }
 
   public prevent($event:any): void {

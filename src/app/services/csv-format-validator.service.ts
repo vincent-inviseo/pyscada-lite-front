@@ -15,11 +15,14 @@ export class CsvFormatValidatorService {
       reader.onload = (event: any) => {
         const csvData = event.target.result;
         const rows = csvData.split('\n');
-        const headers = rows[0].split(',');
-
+        const regex = /[,;]+/;
+        const headers = rows[0].split(regex);
+        if (headers.length === 1) {
+          reject(headers);
+        }
         const data = [];
         for (let i = 1; i < rows.length; i++) {
-          const rowData = rows[i].split(',');
+          const rowData = rows[i].split(regex);
           if (rowData.length === headers.length) {
             const entry: any = {};
             for (let j = 0; j < headers.length; j++) {
