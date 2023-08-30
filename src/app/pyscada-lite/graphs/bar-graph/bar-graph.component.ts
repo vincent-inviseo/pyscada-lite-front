@@ -142,8 +142,14 @@ export class BarGraphComponent implements AfterViewInit, OnChanges {
           date_end = this.dateCleanerGraphService.cleanDateForFilterBackend(this.rangeDates[1]).toString();
         }
         this.chartService.getVariablesValuesByRangeDatesAndChartId(this.chart.chart.id, date_start, date_end, this.aggregateType).subscribe((variablesValues) => {
+          if (variablesValues.length >= 1) {
+            this.chart.datas.variables = variablesValues;
+            this.updateBarGraph(this.chart);
+          }
+          /*
           this.chart.datas.variables = variablesValues;
           this.updateBarGraph(this.chart);
+          */
         });
       }
     }
@@ -309,6 +315,30 @@ export class BarGraphComponent implements AfterViewInit, OnChanges {
 
   public askExportDatas(): void {
     const values = [...this.chart.datas.variables.map( (v:any) => v.values)];
-    this.exportAsCsvService.exportToCsv(values[0], 'exportedData.csv');
+
+    let valuesConcat:any[] = []
+    console.log('values', values);
+    
+    values.forEach(element => {
+      valuesConcat.push(element)
+    });
+
+    console.log('values concat', valuesConcat);
+    
+    
+    // console.log("values", values);
+    // let concat: string;
+    // let concatResult = JSON.stringify(values[0]);
+    // for (let i = 1; i < values.length; i++) {
+    //   concat = JSON.stringify(values[i]);
+    //   concatResult = concatResult.concat(concat);
+    // }
+    // // concatResult = JSON.stringify(concatResult)
+    // const val = JSON.parse(concatResult);
+    // console.log(val.length);
+    // console.log(val);
+    
+    
+    this.exportAsCsvService.exportToCsv(valuesConcat, 'exportedData.csv');
   }
 }

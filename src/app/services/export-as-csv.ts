@@ -17,7 +17,7 @@ export class ExportDataAsCsvService {
     if (!rows || !rows.length) {
       return;
     }
-    const separator = ',';
+    const separator = ';';
     const keys = Object.keys(rows[0]).filter(k => {
       if (columns?.length) {
         return columns.includes(k);
