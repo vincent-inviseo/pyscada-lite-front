@@ -9,6 +9,6 @@ import { Observable } from 'rxjs';
 export class VariableValueService extends AbstractRequestService{
 
     public importVariableValues(json_data: any): Observable<any> {
-        return this.http.post(`${this.apiUrl}/api/variable_values`, json_data);
+      return this.http.post(`${this.apiUrl}/api/variable_values`, json_data);
     }
 }

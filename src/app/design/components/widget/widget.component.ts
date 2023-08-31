@@ -93,7 +93,8 @@ export class WidgetComponent implements AfterViewInit, OnInit {
   public importData(): void {
     const dialog = this.primeNgDialogService.open(ImportDataComponent, {
       data: {
-        importStep: this.importStep
+        importStep: this.importStep,
+        chart_id: this.chart.chart.id
       }
     });
   }
