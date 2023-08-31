@@ -1,3 +1,41 @@
-<label for="inputCsv">Veuillez choisir un fichier csv à importer</label>
-<input type="file" id="inputCsv" name="inputCsvFile" accept=".csv" (change)="verifyFormatFile($event)">
-
+<div class="step1" *ngIf="importStep===1">
+    <label for="inputCsv">Veuillez choisir un fichier csv à importer</label>
+    <input type="file" id="inputCsv" name="inputCsvFile" accept=".csv" (change)="getVariablesAndValuesFromCsv($event)">
+</div>
+<div class="step2" *ngIf="importStep===2">
+    <div class="label">
+        <label for="variablesNames">Sélectionner les variables à importer</label>
+    </div>
+    <div class="label">
+        <label for="variablesNames">Toutes les variables sont sélectionnées par défaut</label>
+    </div>
+    <button id="variablesNames" (click)="dropdownVariables(1)" class="dropbtn"> <span class="textbtn">Sélectionner variable(s)</span> </button>
+        <div id="myDropdown" class='dropdown-content' *ngIf='availableBtn'  [style.display]="this.availableBtn ? 'block' :'none'">
+            <div class="variables-list-container">
+              <app-checkbox *ngFor="let variableName of variablesNames"
+              id="variableName"
+              name="variableName"
+              [objectId]="variableName"
+              (objectChange)="changeVariablesList($event)"
+              [label]="variableName"
+              [_value]="true"
+              ></app-checkbox>
+            </div>
+        </div>
+    <div class="submit">
+        <app-button
+      name="submit"
+      id="submit"
+      [loading]="loading"
+      size="large"
+      full
+      bgColor="primary-color"
+      (click)="submitVariablesImport()"
+      >Valider</app-button>
+    </div>
+</div>
+<!--
+<div class="step3" *ngIf="importStep===3">
+    Ask if create new variable or append data to existing variable for each variable from the previous step
+</div>
+-->

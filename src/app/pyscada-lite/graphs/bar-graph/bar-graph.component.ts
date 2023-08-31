@@ -310,6 +310,7 @@ export class BarGraphComponent implements AfterViewInit, OnChanges {
             /*
             callbacks: {
               footer: (items: any) => {
+                // To adapt depending on number of varaibles 
                 const percentage = ((100 * items[0].raw / items[1].raw) - 100).toFixed(2);
                 if (Number(percentage) >= 0) {
                   return "+" + `${percentage}` + '%'
